@@ -138,7 +138,7 @@ function initRentalTotals() {
         const input = document.getElementById(id);
         if (input) {
             input.addEventListener('input', calculateTotal);
-            input.addEventListener('input', () => checkMaxQuantity(input));
+            input.addEventListener('input', () => enforceMaxQuantity(input));
         }
     });
 
@@ -146,16 +146,29 @@ function initRentalTotals() {
 }
 
 // ========================================
-// MAX QUANTITY NOTIFICATION
+// MAX QUANTITY ENFORCEMENT
 // ========================================
-function checkMaxQuantity(input) {
+function enforceMaxQuantity(input) {
     const max = parseInt(input.getAttribute('max'));
-    const value = parseInt(input.value);
+    const min = parseInt(input.getAttribute('min')) || 0;
+    let value = parseInt(input.value);
     
     // Remove any existing max message
     const existingMsg = input.parentElement.querySelector('.max-qty-message');
     if (existingMsg) {
         existingMsg.remove();
+    }
+    
+    // Enforce max limit - don't allow typing beyond max
+    if (value > max) {
+        input.value = max;
+        value = max;
+    }
+    
+    // Enforce min limit
+    if (value < min || isNaN(value)) {
+        input.value = min;
+        value = min;
     }
     
     // Show message if at max
