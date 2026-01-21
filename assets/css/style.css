@@ -149,16 +149,16 @@ nav {
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    max-width: 600px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    max-width: 700px;
     margin: 0 auto;
 }
 
 .stat-box {
     background: linear-gradient(135deg, rgba(255, 107, 157, 0.85), rgba(255, 217, 61, 0.85));
     border-radius: 15px;
-    padding: 1.5rem 1.5rem;
+    padding: 1.8rem 2rem;
     text-align: center;
     box-shadow: 0 4px 12px rgba(255, 107, 157, 0.2);
     transition: all 0.3s ease;
@@ -177,13 +177,13 @@ nav {
 }
 
 .stat-icon {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     margin-bottom: 0.5rem;
     animation: float 3s ease-in-out infinite;
 }
 
 .stat-number {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 700;
     color: var(--white);
     margin-bottom: 0.3rem;
@@ -205,6 +205,93 @@ nav {
     50% {
         transform: translateY(-10px);
     }
+}
+
+/* ========================================
+   Team Section
+   ======================================== */
+.team-section {
+    background-color: var(--background-light);
+    padding: 3rem 2rem;
+}
+
+.team-image-box {
+    max-width: 700px;
+    margin: 2rem auto 2.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.4s ease;
+}
+
+.team-image-box.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.team-image-placeholder {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 4rem 2rem;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    border: 3px dashed var(--primary-color);
+}
+
+.team-image-placeholder span {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.team-image-placeholder p {
+    color: var(--light-text);
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.team-member {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+    border: 3px solid transparent;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.team-member.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(255, 107, 157, 0.25);
+    border-color: var(--primary-color);
+}
+
+.team-member h3 {
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.team-role {
+    font-size: 1.05rem;
+    color: var(--light-text);
+    font-weight: 500;
+    line-height: 1.5;
 }
 
 /* ========================================
@@ -778,6 +865,19 @@ footer p {
         gap: 2rem;
     }
 
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .team-image-placeholder {
+        padding: 3rem 1.5rem;
+    }
+
+    .team-member {
+        padding: 2rem 1.5rem;
+    }
+
     .service-card {
         padding: 2rem;
     }
@@ -859,6 +959,26 @@ footer p {
 
     .stat-label {
         font-size: 0.8rem;
+    }
+
+    .team-image-placeholder {
+        padding: 2.5rem 1rem;
+    }
+
+    .team-image-placeholder span {
+        font-size: 3rem;
+    }
+
+    .team-image-placeholder p {
+        font-size: 1rem;
+    }
+
+    .team-member h3 {
+        font-size: 1.4rem;
+    }
+
+    .team-role {
+        font-size: 0.95rem;
     }
 
     .service-card {
