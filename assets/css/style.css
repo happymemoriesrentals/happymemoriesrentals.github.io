@@ -4,12 +4,13 @@
 
 /* Root Variables - Easy to customize colors */
 :root {
-    --primary-color: #ff6b9d;
-    --secondary-color: #ffd93d;
-    --accent-color: #6bcf7f;
+    --primary-color: #3b82f6;
+    --secondary-color: #fbbf24;
+    --accent-color: #f97316;
+    --purple-accent: #a855f7;
     --dark-text: #333333;
     --light-text: #666666;
-    --background-light: #fff9f5;
+    --background-light: #f5f5f5;
     --white: #ffffff;
     --border-color: #e0e0e0;
     --success-color: #4caf50;
@@ -156,11 +157,11 @@ nav {
 }
 
 .stat-box {
-    background: linear-gradient(135deg, rgba(255, 107, 157, 0.85), rgba(255, 217, 61, 0.85));
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(249, 115, 22, 0.9));
     border-radius: 15px;
     padding: 1.8rem 2rem;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.2);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
     transition: all 0.3s ease;
     opacity: 0;
     transform: translateY(20px);
@@ -173,7 +174,7 @@ nav {
 
 .stat-box:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(255, 107, 157, 0.25);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
 }
 
 .stat-icon {
@@ -276,7 +277,7 @@ nav {
 
 .team-member:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(255, 107, 157, 0.25);
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.25);
     border-color: var(--primary-color);
 }
 
@@ -333,7 +334,7 @@ nav {
 }
 
 .btn-secondary:hover {
-    background-color: #ff5288;
+    background-color: #2563eb;
     transform: translateY(-3px);
 }
 
@@ -432,7 +433,7 @@ nav {
 
 .service-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(255, 107, 157, 0.2);
+    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
     border-color: var(--primary-color);
 }
 
@@ -523,7 +524,7 @@ nav {
 
 .rental-item:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 25px rgba(255, 107, 157, 0.2);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
     border-color: var(--primary-color);
 }
 
@@ -602,7 +603,7 @@ nav {
 .quantity-selector input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 /* ========================================
@@ -671,7 +672,7 @@ nav {
 }
 
 .form-message.error {
-    background-color: #ffebee;
+    background-color: #fee2e2;
     color: var(--error-color);
     border: 2px solid var(--error-color);
 }
