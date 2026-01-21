@@ -4,14 +4,14 @@
 
 /* Root Variables - Easy to customize colors */
 :root {
-    --primary-color: #1E3A8A;
-    --secondary-color: #3B82F6;
-    --accent-color: #60A5FA;
-    --purple-accent: #93C5FD;
-    --dark-text: #1E3A8A;
-    --light-text: #64748b;
-    --background-light: #F3F4F6;
-    --white: #FFFFFF;
+    --primary-color: #38bdf8;
+    --secondary-color: #60a5fa;
+    --accent-color: #0ea5e9;
+    --purple-accent: #7dd3fc;
+    --dark-text: #0c4a6e;
+    --light-text: #475569;
+    --background-light: #f0f9ff;
+    --white: #ffffff;
     --border-color: #e0e0e0;
     --success-color: #4caf50;
     --error-color: #f44336;
@@ -104,7 +104,7 @@ nav {
    Hero Section
    ======================================== */
 .hero {
-    background: linear-gradient(135deg, #3B82F6 0%, #1E3A8A 100%);
+    background: linear-gradient(135deg, #7dd3fc 0%, #0284c7 100%);
     color: var(--white);
     text-align: center;
     padding: 8rem 2rem;
@@ -157,11 +157,11 @@ nav {
 }
 
 .stat-box {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(30, 58, 138, 0.9));
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.9), rgba(14, 165, 233, 0.9));
     border-radius: 15px;
     padding: 1.8rem 2rem;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.25);
     transition: all 0.3s ease;
     opacity: 0;
     transform: translateY(20px);
@@ -174,7 +174,7 @@ nav {
 
 .stat-box:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(30, 58, 138, 0.35);
+    box-shadow: 0 8px 20px rgba(56, 189, 248, 0.35);
 }
 
 .stat-icon {
@@ -277,7 +277,7 @@ nav {
 
 .team-member:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(30, 58, 138, 0.3);
+    box-shadow: 0 15px 35px rgba(56, 189, 248, 0.3);
     border-color: var(--primary-color);
 }
 
@@ -334,7 +334,7 @@ nav {
 }
 
 .btn-secondary:hover {
-    background-color: #1e40af;
+    background-color: #0ea5e9;
     transform: translateY(-3px);
 }
 
@@ -433,7 +433,7 @@ nav {
 
 .service-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(30, 58, 138, 0.25);
+    box-shadow: 0 15px 40px rgba(56, 189, 248, 0.25);
     border-color: var(--primary-color);
 }
 
@@ -524,7 +524,7 @@ nav {
 
 .rental-item:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 25px rgba(30, 58, 138, 0.25);
+    box-shadow: 0 8px 25px rgba(56, 189, 248, 0.25);
     border-color: var(--primary-color);
 }
 
@@ -603,7 +603,7 @@ nav {
 .quantity-selector input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15);
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
 }
 
 /* ========================================
