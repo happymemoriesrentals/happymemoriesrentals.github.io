@@ -8,8 +8,8 @@
     --secondary-color: #60a5fa;
     --accent-color: #0ea5e9;
     --purple-accent: #7dd3fc;
-    --dark-text: #1e3a8a;
-    --light-text: #64748b;
+    --dark-text: #0c4a6e;
+    --light-text: #475569;
     --background-light: #f0f9ff;
     --white: #ffffff;
     --border-color: #e0e0e0;
@@ -104,7 +104,7 @@ nav {
    Hero Section
    ======================================== */
 .hero {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: linear-gradient(135deg, #7dd3fc 0%, #0c4a6e 100%);
     color: var(--white);
     text-align: center;
     padding: 8rem 2rem;
