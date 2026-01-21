@@ -4,13 +4,13 @@
 
 /* Root Variables - Easy to customize colors */
 :root {
-    --primary-color: #3b82f6;
-    --secondary-color: #fbbf24;
-    --accent-color: #f97316;
-    --purple-accent: #a855f7;
-    --dark-text: #333333;
-    --light-text: #666666;
-    --background-light: #f5f5f5;
+    --primary-color: #38bdf8;
+    --secondary-color: #60a5fa;
+    --accent-color: #0ea5e9;
+    --purple-accent: #7dd3fc;
+    --dark-text: #1e3a8a;
+    --light-text: #64748b;
+    --background-light: #f0f9ff;
     --white: #ffffff;
     --border-color: #e0e0e0;
     --success-color: #4caf50;
@@ -157,11 +157,11 @@ nav {
 }
 
 .stat-box {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(249, 115, 22, 0.9));
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.9), rgba(14, 165, 233, 0.9));
     border-radius: 15px;
     padding: 1.8rem 2rem;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.25);
     transition: all 0.3s ease;
     opacity: 0;
     transform: translateY(20px);
@@ -174,7 +174,7 @@ nav {
 
 .stat-box:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 8px 20px rgba(56, 189, 248, 0.35);
 }
 
 .stat-icon {
@@ -277,7 +277,7 @@ nav {
 
 .team-member:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.25);
+    box-shadow: 0 15px 35px rgba(56, 189, 248, 0.3);
     border-color: var(--primary-color);
 }
 
@@ -334,7 +334,7 @@ nav {
 }
 
 .btn-secondary:hover {
-    background-color: #2563eb;
+    background-color: #0ea5e9;
     transform: translateY(-3px);
 }
 
@@ -433,7 +433,7 @@ nav {
 
 .service-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 15px 40px rgba(56, 189, 248, 0.25);
     border-color: var(--primary-color);
 }
 
@@ -524,7 +524,7 @@ nav {
 
 .rental-item:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 8px 25px rgba(56, 189, 248, 0.25);
     border-color: var(--primary-color);
 }
 
@@ -603,7 +603,7 @@ nav {
 .quantity-selector input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
 }
 
 /* ========================================
