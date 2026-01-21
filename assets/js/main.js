@@ -143,6 +143,21 @@ function initRentalTotals() {
         if (input) {
             input.addEventListener('input', calculateTotal);
             input.addEventListener('input', () => enforceMaxQuantity(input));
+            
+            // Clear 0 when user focuses and starts typing
+            input.addEventListener('focus', function() {
+                if (this.value === '0') {
+                    this.value = '';
+                }
+            });
+            
+            // Restore 0 if left empty
+            input.addEventListener('blur', function() {
+                if (this.value === '') {
+                    this.value = '0';
+                    calculateTotal();
+                }
+            });
         }
     });
 
