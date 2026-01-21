@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
         handleFormSubmission('contactForm', 'https://formspree.io/f/xjggwkja');
     }
 
+    if (currentPage === 'index.html') {
+        initStatsAnimation();
+    }
+
     initSmoothScroll();
 });
 
@@ -346,4 +350,31 @@ function initSmoothScroll() {
             }
         });
     });
+}
+
+// ========================================
+// STATS ANIMATION
+// ========================================
+function initStatsAnimation() {
+    const statBoxes = document.querySelectorAll('[data-animate]');
+    
+    if (!statBoxes.length) return;
+
+    const observerOptions = {
+        threshold: 0.3,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('animate-in');
+                }, index * 150); // Stagger animation by 150ms
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    statBoxes.forEach(box => observer.observe(box));
 }
