@@ -104,8 +104,8 @@ nav {
    Hero Section
    ======================================== */
 .hero {
-    background: linear-gradient(135deg, #7dd3fc 0%, #0284c7 100%);
-    color: var(--white);
+    background: linear-gradient(135deg, #F9E8EC 0%, #F6DDE3 100%);
+    color: var(--dark-text);
     text-align: center;
     padding: 8rem 2rem;
     margin-bottom: 3rem;
@@ -157,11 +157,11 @@ nav {
 }
 
 .stat-box {
-    background: linear-gradient(135deg, rgba(56, 189, 248, 0.9), rgba(14, 165, 233, 0.9));
+    background: linear-gradient(135deg, rgba(246, 221, 227, 0.9), rgba(249, 232, 236, 0.9));
     border-radius: 15px;
     padding: 1.8rem 2rem;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.25);
+    box-shadow: 0 4px 12px rgba(246, 221, 227, 0.25);
     transition: all 0.3s ease;
     opacity: 0;
     transform: translateY(20px);
@@ -174,7 +174,7 @@ nav {
 
 .stat-box:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(56, 189, 248, 0.35);
+    box-shadow: 0 8px 20px rgba(246, 221, 227, 0.35);
 }
 
 .stat-icon {
@@ -186,14 +186,14 @@ nav {
 .stat-number {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--white);
+    color: var(--dark-text);
     margin-bottom: 0.3rem;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
 }
 
 .stat-label {
     font-size: 0.85rem;
-    color: var(--white);
+    color: var(--dark-text);
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -334,7 +334,7 @@ nav {
 }
 
 .btn-secondary:hover {
-    background-color: #0ea5e9;
+    background-color: #F6DDE3;
     transform: translateY(-3px);
 }
 
@@ -524,7 +524,7 @@ nav {
 
 .rental-item:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 25px rgba(56, 189, 248, 0.25);
+    box-shadow: 0 8px 25px rgba(246, 221, 227, 0.25);
     border-color: var(--primary-color);
 }
 
@@ -603,7 +603,7 @@ nav {
 .quantity-selector input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    box-shadow: 0 0 0 3px rgba(246, 221, 227, 0.15);
 }
 
 /* ========================================
@@ -620,7 +620,7 @@ nav {
 }
 
 .selection-card {
-    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    background: linear-gradient(135deg, #FAFAF8 0%, #F9E8EC 100%);
     border: 3px solid var(--primary-color);
     border-radius: 20px;
     padding: 3rem 2rem;
@@ -632,7 +632,7 @@ nav {
 
 .selection-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 12px 30px rgba(56, 189, 248, 0.3);
+    box-shadow: 0 12px 30px rgba(246, 221, 227, 0.3);
     border-color: var(--secondary-color);
 }
 
@@ -703,7 +703,7 @@ nav {
 
 .package-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 30px rgba(56, 189, 248, 0.25);
+    box-shadow: 0 8px 30px rgba(246, 221, 227, 0.25);
 }
 
 .package-header {
@@ -777,7 +777,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem;
-    background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(14, 165, 233, 0.1));
+    background: linear-gradient(135deg, rgba(246, 221, 227, 0.3), rgba(249, 232, 236, 0.3));
     border-radius: 12px;
     margin-bottom: 1.5rem;
 }
