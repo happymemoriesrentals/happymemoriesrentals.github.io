@@ -4,14 +4,14 @@
 
 /* Root Variables - Easy to customize colors */
 :root {
-    --primary-color: #38bdf8;
-    --secondary-color: #60a5fa;
-    --accent-color: #0ea5e9;
-    --purple-accent: #7dd3fc;
-    --dark-text: #0c4a6e;
-    --light-text: #475569;
-    --background-light: #f0f9ff;
-    --white: #ffffff;
+    --primary-color: #D8B766;
+    --secondary-color: #E6CC7A;
+    --accent-color: #C9A64D;
+    --purple-accent: #F6DDE3;
+    --dark-text: #4F4F4F;
+    --light-text: #6B6B6B;
+    --background-light: #F9E8EC;
+    --white: #FAFAF8;
     --border-color: #e0e0e0;
     --success-color: #4caf50;
     --error-color: #f44336;
