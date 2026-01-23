@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Browse and book party rentals from Happy Memories Rentals.">
-    <title>Rentals & Booking - Happy Memories Rentals</title>
+    <title>Rentals & Packages - Happy Memories Rentals</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -13,9 +13,14 @@
 <nav>
     <div class="nav-container">
         <a href="index.html" class="logo">🎈 Happy Memories Rentals</a>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <ul class="nav-menu">
             <li><a href="index.html">Home</a></li>
-            <li><a href="rentals.html" class="active">Rentals & Booking</a></li>
+            <li><a href="rentals.html" class="active">Rentals & Packages</a></li>
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="about.html">About Us</a></li>
             <li><a href="contact.html">Contact</a></li>
@@ -26,14 +31,36 @@
 <!-- Hero -->
 <section class="hero">
     <div class="container">
-        <h1>Rentals & Booking</h1>
-        <p>Choose your items and submit a booking request</p>
+        <h1>Rentals & Packages</h1>
+        <p>Choose your rental option</p>
     </div>
 </section>
 
-<!-- Rentals -->
-<section class="section">
+<!-- Selection Screen -->
+<section class="section" id="selectionScreen">
     <div class="container">
+        <h2 class="section-title">What would you like to rent?</h2>
+        <div class="selection-grid">
+            <div class="selection-card" onclick="showIndividualItems()">
+                <div class="selection-icon">🪑</div>
+                <h3>Individual Items</h3>
+                <p>Browse and select individual rental items like chairs, tables, and decorations</p>
+                <button class="btn btn-primary">View Individual Items</button>
+            </div>
+            <div class="selection-card" onclick="showPackages()">
+                <div class="selection-icon">🎉</div>
+                <h3>Party Packages</h3>
+                <p>Choose from our themed party packages with everything you need</p>
+                <button class="btn btn-primary">View Party Packages</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Individual Rentals Section -->
+<section class="section" id="individualItemsSection" style="display:none;">
+    <div class="container">
+        <button class="btn-back" onclick="showSelectionScreen()">← Back to Options</button>
         <h2 class="section-title">Available Rental Items</h2>
 
         <div class="rental-grid">
@@ -151,8 +178,86 @@
     </div>
 </section>
 
+<!-- Party Packages Section -->
+<section class="section" id="packagesSection" style="display:none;">
+    <div class="container">
+        <button class="btn-back" onclick="showSelectionScreen()">← Back to Options</button>
+        <h2 class="section-title">Party Packages</h2>
+        
+        <div class="package-grid">
+            <!-- Superhero Package -->
+            <div class="package-card">
+                <div class="package-header superhero-theme">
+                    <h3>🦸 Superhero Party Package</h3>
+                </div>
+                <div class="package-body">
+                    <p class="package-description">Transform your party into an action-packed superhero adventure! This package includes themed decorations and essentials for an unforgettable celebration.</p>
+                    
+                    <div class="package-includes">
+                        <h4>Package Includes:</h4>
+                        <ul>
+                            <li>Superhero themed backdrop</li>
+                            <li>Coordinated table settings</li>
+                            <li>Themed decorations</li>
+                            <li>Complete party setup</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="package-price">
+                        <span class="price-label">Package Price:</span>
+                        <span class="price-amount">$250.00</span>
+                    </div>
+                    
+                    <div class="package-selector">
+                        <label>
+                            <input type="checkbox" id="superhero-package" value="250" onchange="calculatePackageTotal()">
+                            Select this package
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Princess Package -->
+            <div class="package-card">
+                <div class="package-header princess-theme">
+                    <h3>👑 Princess Party Package</h3>
+                </div>
+                <div class="package-body">
+                    <p class="package-description">Create a magical royal celebration fit for a princess! This enchanting package brings fairy tale dreams to life with elegant decorations and essentials.</p>
+                    
+                    <div class="package-includes">
+                        <h4>Package Includes:</h4>
+                        <ul>
+                            <li>Princess themed backdrop</li>
+                            <li>Elegant table settings</li>
+                            <li>Themed decorations</li>
+                            <li>Complete party setup</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="package-price">
+                        <span class="price-label">Package Price:</span>
+                        <span class="price-amount">$250.00</span>
+                    </div>
+                    
+                    <div class="package-selector">
+                        <label>
+                            <input type="checkbox" id="princess-package" value="250" onchange="calculatePackageTotal()">
+                            Select this package
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 style="text-align:center;margin-top:2rem;font-size:2rem;">
+            Package Total: <span id="packageTotalPrice">$0.00</span>
+        </h2>
+    </div>
+</section>
+
 <!-- Booking Form -->
-<section class="section" style="background:#f9f9f9;">
+<section class="section booking-form-section" style="background:#f9f9f9;display:none;">
 <div class="container">
 
 <h2 class="section-title">Submit Your Booking Request</h2>

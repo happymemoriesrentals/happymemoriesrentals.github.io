@@ -28,6 +28,153 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ========================================
+// VIEW SWITCHING (Rentals Page)
+// ========================================
+function showSelectionScreen() {
+    document.getElementById('selectionScreen').style.display = 'block';
+    document.getElementById('individualItemsSection').style.display = 'none';
+    document.getElementById('packagesSection').style.display = 'none';
+    document.querySelector('.booking-form-section').style.display = 'none';
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showIndividualItems() {
+    document.getElementById('selectionScreen').style.display = 'none';
+    document.getElementById('individualItemsSection').style.display = 'block';
+    document.getElementById('packagesSection').style.display = 'none';
+    document.querySelector('.booking-form-section').style.display = 'block';
+    
+    // Reset package selections
+    resetPackageSelections();
+    
+    // Recalculate individual items total
+    if (typeof calculateTotal !== 'undefined') {
+        setTimeout(() => {
+            const inputs = document.querySelectorAll('#individualItemsSection input[type="number"]');
+            if (inputs.length > 0) {
+                inputs[0].dispatchEvent(new Event('input'));
+            }
+        }, 100);
+    }
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showPackages() {
+    document.getElementById('selectionScreen').style.display = 'none';
+    document.getElementById('individualItemsSection').style.display = 'none';
+    document.getElementById('packagesSection').style.display = 'block';
+    document.querySelector('.booking-form-section').style.display = 'block';
+    
+    // Reset individual item quantities
+    resetIndividualItems();
+    
+    // Calculate package total
+    calculatePackageTotal();
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetPackageSelections() {
+    const superheroCheckbox = document.getElementById('superhero-package');
+    const princessCheckbox = document.getElementById('princess-package');
+    if (superheroCheckbox) superheroCheckbox.checked = false;
+    if (princessCheckbox) princessCheckbox.checked = false;
+    
+    const packageTotal = document.getElementById('packageTotalPrice');
+    if (packageTotal) packageTotal.textContent = '$0.00';
+}
+
+function resetIndividualItems() {
+    const quantityInputs = document.querySelectorAll('#individualItemsSection input[type="number"]');
+    quantityInputs.forEach(input => {
+        input.value = 0;
+    });
+    
+    const totalPrice = document.getElementById('totalPrice');
+    const finalTotal = document.getElementById('finalTotal');
+    if (totalPrice) totalPrice.textContent = '$0.00';
+    if (finalTotal) finalTotal.textContent = '$0.00';
+    
+    const summaryDiv = document.getElementById('selectedItemsSummary');
+    if (summaryDiv) summaryDiv.style.display = 'none';
+}
+
+// ========================================
+// PACKAGE TOTAL CALCULATION
+// ========================================
+function calculatePackageTotal() {
+    const superheroCheckbox = document.getElementById('superhero-package');
+    const princessCheckbox = document.getElementById('princess-package');
+    
+    let total = 0;
+    const selectedPackages = [];
+    
+    if (superheroCheckbox && superheroCheckbox.checked) {
+        total += parseFloat(superheroCheckbox.value);
+        selectedPackages.push({
+            name: 'Superhero Party Package',
+            price: parseFloat(superheroCheckbox.value)
+        });
+    }
+    
+    if (princessCheckbox && princessCheckbox.checked) {
+        total += parseFloat(princessCheckbox.value);
+        selectedPackages.push({
+            name: 'Princess Party Package',
+            price: parseFloat(princessCheckbox.value)
+        });
+    }
+    
+    // Update package total display
+    const packageTotalPrice = document.getElementById('packageTotalPrice');
+    const finalTotal = document.getElementById('finalTotal');
+    
+    if (packageTotalPrice) {
+        packageTotalPrice.textContent = `$${total.toFixed(2)}`;
+    }
+    
+    if (finalTotal) {
+        finalTotal.textContent = `$${total.toFixed(2)}`;
+    }
+    
+    // Update selected packages summary
+    updatePackageSummary(selectedPackages, total);
+}
+
+function updatePackageSummary(packages, total) {
+    const summaryDiv = document.getElementById('selectedItemsSummary');
+    const listEl = document.getElementById('selectedItemsList');
+    const summaryTotalEl = document.getElementById('summaryTotal');
+    const summaryTitle = summaryDiv?.querySelector('h3');
+    
+    if (!summaryDiv || !listEl || !summaryTotalEl) return;
+    
+    if (packages.length === 0) {
+        summaryDiv.style.display = 'none';
+        return;
+    }
+    
+    summaryDiv.style.display = 'block';
+    
+    // Update title for packages
+    if (summaryTitle) {
+        summaryTitle.textContent = 'Your Selected Package(s):';
+    }
+    
+    listEl.innerHTML = packages.map(pkg => `
+        <li style="padding:0.5rem 0;border-bottom:1px solid #eee;display:flex;justify-content:space-between;">
+            <span><strong>${pkg.name}</strong></span>
+            <span style="font-weight:bold;">$${pkg.price.toFixed(2)}</span>
+        </li>
+    `).join('');
+    
+    summaryTotalEl.textContent = `$${total.toFixed(2)}`;
+}
+
+// ========================================
 // MOBILE MENU
 // ========================================
 function initMobileMenu() {
