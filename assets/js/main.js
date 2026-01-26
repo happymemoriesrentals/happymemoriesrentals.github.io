@@ -607,26 +607,45 @@ function populateHiddenBookingFields(form) {
 // ========================================
 function handleFormSubmission(formId, formspreeUrl) {
     const form = document.getElementById(formId);
-    if (!form) return;
+    if (!form) {
+        console.error(`Form with id "${formId}" not found`);
+        return;
+    }
 
     const messageDiv = document.getElementById('formMessage');
     const submitButton = form.querySelector('button[type="submit"]');
 
+    if (!messageDiv) {
+        console.error('formMessage div not found');
+    }
+
+    if (!submitButton) {
+        console.error('Submit button not found');
+    }
+
+    console.log(`Form submission handler attached to ${formId}`);
+
     form.addEventListener('submit', async e => {
         e.preventDefault();
+        console.log('Form submission started');
 
         // Populate hidden fields with current booking selections
         if (formId === 'bookingForm') {
             populateHiddenBookingFields(form);
+            console.log('Hidden booking fields populated');
         }
 
-        submitButton.disabled = true;
-        submitButton.textContent = 'Sending...';
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+        }
 
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
+        console.log('Form data:', data);
 
         try {
+            console.log('Sending to Formspree:', formspreeUrl);
             const res = await fetch(formspreeUrl, {
                 method: 'POST',
                 headers: {
@@ -636,26 +655,43 @@ function handleFormSubmission(formId, formspreeUrl) {
                 body: JSON.stringify(data)
             });
 
-            if (!res.ok) throw new Error();
+            console.log('Formspree response status:', res.status);
 
-            messageDiv.textContent =
-                "✅ Thank you! Your booking request was sent.";
-            messageDiv.className = "form-message success show";
-            
-            // Scroll message into view
-            messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (!res.ok) {
+                const errorText = await res.text();
+                console.error('Formspree error:', errorText);
+                throw new Error(`HTTP ${res.status}`);
+            }
+
+            const responseData = await res.json();
+            console.log('Formspree success:', responseData);
+
+            if (messageDiv) {
+                messageDiv.textContent =
+                    "✅ Thank you! Your booking request was sent.";
+                messageDiv.className = "form-message success show";
+                
+                // Scroll message into view
+                messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
             
             form.reset();
-        } catch {
-            messageDiv.textContent =
-                "❌ Something went wrong. Please try again.";
-            messageDiv.className = "form-message error show";
+        } catch (error) {
+            console.error('Submission error:', error);
             
-            // Scroll message into view
-            messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (messageDiv) {
+                messageDiv.textContent =
+                    "❌ Something went wrong. Please try again.";
+                messageDiv.className = "form-message error show";
+                
+                // Scroll message into view
+                messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         } finally {
-            submitButton.disabled = false;
-            submitButton.textContent = 'Submit Booking Request';
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Submit Booking Request';
+            }
         }
     });
 }
