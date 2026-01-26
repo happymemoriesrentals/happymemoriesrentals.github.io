@@ -459,16 +459,16 @@ function handleFormSubmission(formId, formspreeUrl) {
     const form = document.getElementById(formId);
     if (!form) return;
 
-    const messageDiv = document.getElementById('formMessage');
     const submitButton = form.querySelector('button[type="submit"]');
     const originalButtonText = submitButton ? submitButton.textContent : '';
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Populate booking details if this is the booking form
-        if (formId === 'bookingForm' && typeof populateHiddenBookingFields === 'function') {
-            populateHiddenBookingFields(form);
+        // Remove any existing thank you message
+        const existingThankYou = submitButton.parentElement.querySelector('.thank-you-message');
+        if (existingThankYou) {
+            existingThankYou.remove();
         }
 
         if (submitButton) {
@@ -477,33 +477,64 @@ function handleFormSubmission(formId, formspreeUrl) {
         }
 
         try {
+            const formData = new FormData(form);
             const response = await fetch(formspreeUrl, {
                 method: 'POST',
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/json'
                 },
-                body: JSON.stringify(
-                    Object.fromEntries(new FormData(form).entries())
-                )
+                body: formData
             });
 
             if (!response.ok) throw new Error('Formspree error');
 
-            if (messageDiv) {
-                messageDiv.textContent = '✅ Thank you! We received your request and will contact you shortly.';
-                messageDiv.className = 'form-message success show';
-                messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
+            // Create and show green thank you box below the submit button
+            const thankYouBox = document.createElement('div');
+            thankYouBox.className = 'thank-you-message';
+            thankYouBox.style.cssText = `
+                background: #d4edda;
+                border: 2px solid #28a745;
+                border-radius: 8px;
+                padding: 1.5rem;
+                margin-top: 1rem;
+                text-align: center;
+                color: #155724;
+                font-size: 1.1rem;
+                font-weight: 600;
+                animation: fadeIn 0.5s ease-in;
+                box-shadow: 0 4px 6px rgba(40, 167, 69, 0.2);
+            `;
+            thankYouBox.innerHTML = '✅ Thank you! Your booking request was sent successfully.';
+            
+            submitButton.parentElement.appendChild(thankYouBox);
+            
+            // Scroll to the thank you message
+            thankYouBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
             form.reset();
 
         } catch (error) {
-            if (messageDiv) {
-                messageDiv.textContent = '❌ Something went wrong. Please try again.';
-                messageDiv.className = 'form-message error show';
-                messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
+            // Create and show error message
+            const errorBox = document.createElement('div');
+            errorBox.className = 'error-message';
+            errorBox.style.cssText = `
+                background: #f8d7da;
+                border: 2px solid #dc3545;
+                border-radius: 8px;
+                padding: 1.5rem;
+                margin-top: 1rem;
+                text-align: center;
+                color: #721c24;
+                font-size: 1.1rem;
+                font-weight: 600;
+                animation: fadeIn 0.5s ease-in;
+                box-shadow: 0 4px 6px rgba(220, 53, 69, 0.2);
+            `;
+            errorBox.innerHTML = '❌ Something went wrong. Please try again or contact us directly.';
+            
+            submitButton.parentElement.appendChild(errorBox);
+            
+            errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } finally {
             if (submitButton) {
                 submitButton.disabled = false;
