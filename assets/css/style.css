@@ -632,6 +632,21 @@ nav {
     transition: all 0.3s;
 }
 
+/* Make spinner arrows bigger and easier to click */
+.quantity-selector input::-webkit-inner-spin-button,
+.quantity-selector input::-webkit-outer-spin-button {
+    opacity: 1;
+    height: 50px;
+    width: 30px;
+    cursor: pointer;
+}
+
+/* Firefox number input arrows */
+.quantity-selector input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
 .quantity-selector input:focus {
     outline: none;
     border-color: var(--primary-color);

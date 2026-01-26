@@ -2,15 +2,21 @@
 // Happy Memories Rentals - Main JavaScript
 // ========================================
 
+console.log('🔥 main.js is loading...');
+
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('🔥 DOMContentLoaded event fired');
     initMobileMenu();
     setActiveNavLink();
 
     if (document.getElementById('bookingForm')) {
+        console.log('🔥 bookingForm found, initializing...');
         initRentalTotals();
         initDeliveryToggle();
         initCityDistanceEstimate();
         handleFormSubmission('bookingForm', 'https://formspree.io/f/xjggwkja');
+    } else {
+        console.log('❌ bookingForm NOT found');
     }
 
     if (document.getElementById('contactForm')) {
@@ -456,20 +462,30 @@ function initContactDeliveryToggle() {
 // FORMSPREE FORM HANDLER
 // ========================================
 function handleFormSubmission(formId, formspreeUrl) {
+    console.log('Setting up form handler for:', formId);
     const form = document.getElementById(formId);
-    if (!form) return;
+    
+    if (!form) {
+        console.error('Form not found:', formId);
+        return;
+    }
+    
+    console.log('Form found:', form);
 
     const submitButton = form.querySelector('button[type="submit"]');
     const originalButtonText = submitButton ? submitButton.textContent : '';
+    
+    console.log('Submit button:', submitButton);
 
-    form.addEventListener('submit', async (e) => {
+    // Add both form submit AND button click handlers
+    const handleSubmit = async (e) => {
+        console.log('🚀 Form submission triggered!');
         e.preventDefault();
+        e.stopPropagation();
 
-        // Remove any existing thank you message
-        const existingThankYou = submitButton.parentElement.querySelector('.thank-you-message');
-        if (existingThankYou) {
-            existingThankYou.remove();
-        }
+        // Remove any existing messages
+        const existingMessages = form.querySelectorAll('.thank-you-message, .error-message');
+        existingMessages.forEach(msg => msg.remove());
 
         if (submitButton) {
             submitButton.disabled = true;
@@ -477,7 +493,15 @@ function handleFormSubmission(formId, formspreeUrl) {
         }
 
         try {
+            console.log('Attempting to send to Formspree...');
             const formData = new FormData(form);
+            
+            // Log form data
+            console.log('Form data entries:');
+            for (let [key, value] of formData.entries()) {
+                console.log(`  ${key}: ${value}`);
+            }
+            
             const response = await fetch(formspreeUrl, {
                 method: 'POST',
                 headers: {
@@ -485,6 +509,10 @@ function handleFormSubmission(formId, formspreeUrl) {
                 },
                 body: formData
             });
+
+            console.log('Response received:', response);
+            console.log('Response OK:', response.ok);
+            console.log('Response status:', response.status);
 
             if (!response.ok) throw new Error('Formspree error');
 
@@ -506,7 +534,8 @@ function handleFormSubmission(formId, formspreeUrl) {
             `;
             thankYouBox.innerHTML = '✅ Thank you! Your booking request was sent successfully.';
             
-            submitButton.parentElement.appendChild(thankYouBox);
+            // Insert after submit button
+            submitButton.insertAdjacentElement('afterend', thankYouBox);
             
             // Scroll to the thank you message
             thankYouBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -514,6 +543,8 @@ function handleFormSubmission(formId, formspreeUrl) {
             form.reset();
 
         } catch (error) {
+            console.error('Error submitting form:', error);
+            
             // Create and show error message
             const errorBox = document.createElement('div');
             errorBox.className = 'error-message';
@@ -532,7 +563,8 @@ function handleFormSubmission(formId, formspreeUrl) {
             `;
             errorBox.innerHTML = '❌ Something went wrong. Please try again or contact us directly.';
             
-            submitButton.parentElement.appendChild(errorBox);
+            // Insert after submit button
+            submitButton.insertAdjacentElement('afterend', errorBox);
             
             errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } finally {
@@ -541,7 +573,27 @@ function handleFormSubmission(formId, formspreeUrl) {
                 submitButton.textContent = originalButtonText;
             }
         }
-    });
+    };
+
+    // Attach to form submit event
+    form.addEventListener('submit', handleSubmit);
+    
+    // ALSO attach directly to button click as backup
+    if (submitButton) {
+        submitButton.addEventListener('click', (e) => {
+            console.log('🖱️ Button clicked directly!');
+            // Check if form is valid
+            if (form.checkValidity()) {
+                console.log('✅ Form is valid, triggering submit');
+                handleSubmit(e);
+            } else {
+                console.log('❌ Form validation failed');
+                form.reportValidity();
+            }
+        });
+    }
+    
+    console.log('Form handler setup complete for:', formId);
 }
 
 

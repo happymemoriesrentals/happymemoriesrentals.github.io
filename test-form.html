@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Test</title>
+</head>
+<body>
+    <h1>Testing Form Submission</h1>
+    <form id="bookingForm">
+        <input type="text" name="test" placeholder="Test field" required>
+        <button type="submit">Submit Booking Request</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded');
+            const form = document.getElementById('bookingForm');
+            console.log('Form found:', form);
+            
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    console.log('Form submitted!');
+                    alert('Form submission captured!');
+                    
+                    const formData = new FormData(form);
+                    console.log('Form data:', Object.fromEntries(formData));
+                    
+                    try {
+                        const response = await fetch('https://formspree.io/f/xjggwkja', {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json'
+                            },
+                            body: formData
+                        });
+                        
+                        console.log('Response:', response);
+                        console.log('Response OK:', response.ok);
+                        
+                        if (response.ok) {
+                            alert('SUCCESS! Form sent to Formspree');
+                        } else {
+                            alert('ERROR: Response not OK');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('ERROR: ' + error.message);
+                    }
+                });
+            } else {
+                console.error('Form not found!');
+            }
+        });
+    </script>
+</body>
+</html>
