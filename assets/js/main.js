@@ -641,11 +641,18 @@ function handleFormSubmission(formId, formspreeUrl) {
             messageDiv.textContent =
                 "✅ Thank you! Your booking request was sent.";
             messageDiv.className = "form-message success show";
+            
+            // Scroll message into view
+            messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
             form.reset();
         } catch {
             messageDiv.textContent =
                 "❌ Something went wrong. Please try again.";
             messageDiv.className = "form-message error show";
+            
+            // Scroll message into view
+            messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } finally {
             submitButton.disabled = false;
             submitButton.textContent = 'Submit Booking Request';
