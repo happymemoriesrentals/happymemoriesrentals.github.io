@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initRentalTotals();
         initDeliveryToggle();
         initCityDistanceEstimate();
+        // Separate Formspree endpoint for booking requests
         handleFormSubmission('bookingForm', 'https://formspree.io/f/xjggwkja');
     } else {
         console.log('❌ bookingForm NOT found');
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.getElementById('contactForm')) {
         initContactDeliveryToggle();
+        // Separate Formspree endpoint for contact form (use your second form endpoint here)
         handleFormSubmission('contactForm', 'https://formspree.io/f/xjggwkja');
     }
 
@@ -492,9 +494,43 @@ function handleFormSubmission(formId, formspreeUrl) {
             submitButton.textContent = 'Sending...';
         }
 
+        // Show instant optimistic feedback
+        const loadingBox = document.createElement('div');
+        loadingBox.className = 'loading-message';
+        loadingBox.style.cssText = `
+            background: #cce5ff;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            text-align: center;
+            color: #004085;
+            font-size: 1.1rem;
+            font-weight: 600;
+            animation: fadeIn 0.3s ease-in;
+        `;
+        loadingBox.innerHTML = '⏳ Sending your request...';
+        submitButton.insertAdjacentElement('afterend', loadingBox);
+
         try {
             console.log('Attempting to send to Formspree...');
             const formData = new FormData(form);
+            
+            // If this is the booking form, populate hidden fields with selected items
+            if (formId === 'bookingForm') {
+                const selectedItemsList = document.getElementById('selectedItemsList');
+                const finalTotal = document.getElementById('finalTotal');
+                
+                if (selectedItemsList && finalTotal) {
+                    // Get text content of selected items
+                    const itemsText = selectedItemsList.innerText || 'No items selected';
+                    const totalText = finalTotal.innerText || '$0.00';
+                    
+                    // Update hidden fields
+                    formData.set('selected_items', itemsText);
+                    formData.set('estimated_total', totalText);
+                }
+            }
             
             // Log form data
             console.log('Form data entries:');
@@ -502,17 +538,27 @@ function handleFormSubmission(formId, formspreeUrl) {
                 console.log(`  ${key}: ${value}`);
             }
             
+            // Add timeout to prevent long waits
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
             const response = await fetch(formspreeUrl, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json'
                 },
-                body: formData
+                body: formData,
+                signal: controller.signal
             });
+
+            clearTimeout(timeoutId);
 
             console.log('Response received:', response);
             console.log('Response OK:', response.ok);
             console.log('Response status:', response.status);
+
+            // Remove loading message
+            loadingBox.remove();
 
             if (!response.ok) throw new Error('Formspree error');
 
@@ -544,6 +590,10 @@ function handleFormSubmission(formId, formspreeUrl) {
 
         } catch (error) {
             console.error('Error submitting form:', error);
+            
+            // Remove loading message if it exists
+            const loadingMsg = form.querySelector('.loading-message');
+            if (loadingMsg) loadingMsg.remove();
             
             // Create and show error message
             const errorBox = document.createElement('div');
