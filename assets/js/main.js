@@ -6,20 +6,21 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     setActiveNavLink();
 
-    // FIX: Attach handlers based on form existence instead of filename
-    if (document.getElementById('bookingForm')) {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+    if (currentPage === 'rentals.html') {
         initRentalTotals();
         initDeliveryToggle();
         initCityDistanceEstimate();
         handleFormSubmission('bookingForm', 'https://formspree.io/f/xjggwkja');
     }
 
-    if (document.getElementById('contactForm')) {
+    if (currentPage === 'contact.html') {
         initContactDeliveryToggle();
         handleFormSubmission('contactForm', 'https://formspree.io/f/xjggwkja');
     }
 
-    if (document.getElementById('stats') || window.location.pathname.endsWith('index.html')) {
+    if (currentPage === 'index.html') {
         initStatsAnimation();
     }
 
@@ -35,6 +36,7 @@ function showSelectionScreen() {
     document.getElementById('packagesSection').style.display = 'none';
     document.querySelector('.booking-form-section').style.display = 'none';
     
+    // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -44,8 +46,10 @@ function showIndividualItems() {
     document.getElementById('packagesSection').style.display = 'none';
     document.querySelector('.booking-form-section').style.display = 'block';
     
+    // Reset package selections
     resetPackageSelections();
     
+    // Recalculate individual items total
     if (typeof calculateTotal !== 'undefined') {
         setTimeout(() => {
             const inputs = document.querySelectorAll('#individualItemsSection input[type="number"]');
@@ -64,7 +68,10 @@ function showPackages() {
     document.getElementById('packagesSection').style.display = 'block';
     document.querySelector('.booking-form-section').style.display = 'block';
     
+    // Reset individual item quantities
     resetIndividualItems();
+    
+    // Calculate package total
     calculatePackageTotal();
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -121,6 +128,7 @@ function calculatePackageTotal() {
         });
     }
     
+    // Update package total display
     const packageTotalPrice = document.getElementById('packageTotalPrice');
     const finalTotal = document.getElementById('finalTotal');
     
@@ -132,6 +140,7 @@ function calculatePackageTotal() {
         finalTotal.textContent = `$${total.toFixed(2)}`;
     }
     
+    // Update selected packages summary
     updatePackageSummary(selectedPackages, total);
 }
 
@@ -150,6 +159,7 @@ function updatePackageSummary(packages, total) {
     
     summaryDiv.style.display = 'block';
     
+    // Update title for packages
     if (summaryTitle) {
         summaryTitle.textContent = 'Your Selected Package(s):';
     }
@@ -241,11 +251,13 @@ function initRentalTotals() {
             }
         });
 
+        // Update totals
         document.getElementById('totalPrice').textContent =
             `$${subtotal.toFixed(2)}`;
         document.getElementById('finalTotal').textContent =
             `$${subtotal.toFixed(2)}`;
         
+        // Update selected items summary
         updateSelectedItemsList(selectedItems, subtotal);
     }
 
@@ -279,12 +291,14 @@ function initRentalTotals() {
             input.addEventListener('input', calculateTotal);
             input.addEventListener('input', () => enforceMaxQuantity(input));
             
+            // Clear 0 when user focuses and starts typing
             input.addEventListener('focus', function() {
                 if (this.value === '0') {
                     this.value = '';
                 }
             });
             
+            // Restore 0 if left empty
             input.addEventListener('blur', function() {
                 if (this.value === '') {
                     this.value = '0';
@@ -305,21 +319,25 @@ function enforceMaxQuantity(input) {
     const min = parseInt(input.getAttribute('min')) || 0;
     let value = parseInt(input.value);
     
+    // Remove any existing max message
     const existingMsg = input.parentElement.querySelector('.max-qty-message');
     if (existingMsg) {
         existingMsg.remove();
     }
     
+    // Enforce max limit - don't allow typing beyond max
     if (value > max) {
         input.value = max;
         value = max;
     }
     
+    // Enforce min limit
     if (value < min || isNaN(value)) {
         input.value = min;
         value = min;
     }
     
+    // Show message if at max
     if (value >= max && max > 0) {
         const message = document.createElement('div');
         message.className = 'max-qty-message';
@@ -357,14 +375,16 @@ function initDeliveryToggle() {
             const isDelivery = radio.value === 'yes' && radio.checked;
             section.style.display = isDelivery ? 'block' : 'none';
             
+            // Toggle delivery fee notice
             if (deliveryFeeNotice) {
                 deliveryFeeNotice.style.display = isDelivery ? 'block' : 'none';
             }
             
+            // Toggle required attribute on address field
             if (addressInput) {
                 addressInput.required = isDelivery;
                 if (!isDelivery) {
-                    addressInput.value = '';
+                    addressInput.value = ''; // Clear address if switching to pickup
                 }
             }
         });
@@ -434,178 +454,20 @@ function initContactDeliveryToggle() {
 }
 
 // ========================================
-// HELPER: EXTRACT SELECTED INDIVIDUAL ITEMS
-// ========================================
-function getSelectedIndividualItems() {
-    const prices = {
-        'white-chairs': 1.5,
-        'adult-tables': 10,
-        'kids-chairs': 3,
-        'kids-tables': 10,
-        'wooden-stools': 2,
-        'white-resin-chairs': 2.5,
-        'cherry-backdrop': 60
-    };
-
-    const itemNames = {
-        'white-chairs': 'White Plastic Chairs',
-        'adult-tables': 'Plastic Tables (Adult)',
-        'kids-chairs': 'Kids Pink Chiavari Chairs',
-        'kids-tables': 'Kids Tables',
-        'wooden-stools': 'Wooden Kids Stools',
-        'white-resin-chairs': 'Kids White Resin Chairs',
-        'cherry-backdrop': 'Cherry Backdrop'
-    };
-
-    const selectedItems = [];
-    let total = 0;
-
-    Object.keys(prices).forEach(id => {
-        const input = document.getElementById(id);
-        const qty = parseInt(input?.value || 0);
-        if (qty > 0) {
-            const itemTotal = qty * prices[id];
-            total += itemTotal;
-            selectedItems.push({
-                name: itemNames[id],
-                qty: qty,
-                price: prices[id],
-                total: itemTotal
-            });
-        }
-    });
-
-    return { items: selectedItems, total: total };
-}
-
-// ========================================
-// HELPER: EXTRACT SELECTED PACKAGES
-// ========================================
-function getSelectedPackages() {
-    const superheroCheckbox = document.getElementById('superhero-package');
-    const princessCheckbox = document.getElementById('princess-package');
-    
-    const selectedPackages = [];
-    let total = 0;
-    
-    if (superheroCheckbox && superheroCheckbox.checked) {
-        const price = parseFloat(superheroCheckbox.value);
-        total += price;
-        selectedPackages.push({
-            name: 'Superhero Party Package',
-            price: price
-        });
-    }
-    
-    if (princessCheckbox && princessCheckbox.checked) {
-        const price = parseFloat(princessCheckbox.value);
-        total += price;
-        selectedPackages.push({
-            name: 'Princess Party Package',
-            price: price
-        });
-    }
-    
-    return { packages: selectedPackages, total: total };
-}
-
-// ========================================
-// HELPER: FORMAT SELECTIONS FOR EMAIL
-// ========================================
-function formatSelectionsForEmail() {
-    const individualItemsSection = document.getElementById('individualItemsSection');
-    const packagesSection = document.getElementById('packagesSection');
-    
-    let itemsText = '';
-    let packagesText = '';
-    let orderTotal = 0;
-    
-    if (individualItemsSection && individualItemsSection.style.display !== 'none') {
-        const { items, total } = getSelectedIndividualItems();
-        orderTotal = total;
-        
-        if (items.length > 0) {
-            itemsText = items.map(item => 
-                `${item.name} - Qty: ${item.qty} @ $${item.price.toFixed(2)} each = $${item.total.toFixed(2)}`
-            ).join('\n');
-        } else {
-            itemsText = 'No individual items selected';
-        }
-    }
-    
-    if (packagesSection && packagesSection.style.display !== 'none') {
-        const { packages, total } = getSelectedPackages();
-        orderTotal = total;
-        
-        if (packages.length > 0) {
-            packagesText = packages.map(pkg => 
-                `${pkg.name} - $${pkg.price.toFixed(2)}`
-            ).join('\n');
-        } else {
-            packagesText = 'No packages selected';
-        }
-    }
-    
-    return {
-        itemsText: itemsText || 'N/A',
-        packagesText: packagesText || 'N/A',
-        orderTotal: orderTotal
-    };
-}
-
-// ========================================
-// HELPER: POPULATE HIDDEN FORM FIELDS
-// ========================================
-function populateHiddenBookingFields(form) {
-    const { itemsText, packagesText, orderTotal } = formatSelectionsForEmail();
-    
-    const existingFields = form.querySelectorAll('[data-booking-field]');
-    existingFields.forEach(field => field.remove());
-    
-    const fieldsToAdd = [
-        { name: 'Selected_Individual_Items', value: itemsText },
-        { name: 'Selected_Packages', value: packagesText },
-        { name: 'Order_Total', value: `$${orderTotal.toFixed(2)}` }
-    ];
-    
-    fieldsToAdd.forEach(fieldData => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = fieldData.name;
-        input.value = fieldData.value;
-        input.setAttribute('data-booking-field', 'true');
-        form.appendChild(input);
-    });
-}
-
-// ========================================
-// FORMSPREE HANDLER (FIXED)
+// FORMSPREE HANDLER
 // ========================================
 function handleFormSubmission(formId, formspreeUrl) {
     const form = document.getElementById(formId);
-    if (!form) {
-        console.error(`Form with id "${formId}" not found`);
-        return;
-    }
+    if (!form) return;
 
     const messageDiv = document.getElementById('formMessage');
     const submitButton = form.querySelector('button[type="submit"]');
-    const originalButtonText = submitButton ? submitButton.textContent : '';
-
-    console.log(`Form submission handler attached to ${formId}`);
 
     form.addEventListener('submit', async e => {
         e.preventDefault();
-        console.log('Form submission started');
 
-        if (formId === 'bookingForm') {
-            populateHiddenBookingFields(form);
-        }
-
-        if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.textContent = 'Sending...';
-        }
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
 
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
@@ -620,28 +482,19 @@ function handleFormSubmission(formId, formspreeUrl) {
                 body: JSON.stringify(data)
             });
 
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            if (!res.ok) throw new Error();
 
-            if (messageDiv) {
-                messageDiv.textContent = "✅ Thank you! Your booking request was sent.";
-                messageDiv.className = "form-message success show";
-                messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-
+            messageDiv.textContent =
+                "✅ Thank you! Your booking request was sent.";
+            messageDiv.className = "form-message success show";
             form.reset();
-        } catch (error) {
-            console.error('Submission error:', error);
-
-            if (messageDiv) {
-                messageDiv.textContent = "❌ Something went wrong. Please try again.";
-                messageDiv.className = "form-message error show";
-                messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
+        } catch {
+            messageDiv.textContent =
+                "❌ Something went wrong. Please try again.";
+            messageDiv.className = "form-message error show";
         } finally {
-            if (submitButton) {
-                submitButton.disabled = false;
-                submitButton.textContent = originalButtonText;
-            }
+            submitButton.disabled = false;
+            submitButton.textContent = 'Submit Booking Request';
         }
     });
 }
@@ -679,7 +532,7 @@ function initStatsAnimation() {
             if (entry.isIntersecting) {
                 setTimeout(() => {
                     entry.target.classList.add('animate-in');
-                }, index * 150);
+                }, index * 150); // Stagger animation by 150ms
                 observer.unobserve(entry.target);
             }
         });
