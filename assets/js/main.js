@@ -6,21 +6,20 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     setActiveNavLink();
 
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-
-    if (currentPage === 'rentals.html') {
+    // FIX: Attach handlers based on form existence instead of filename
+    if (document.getElementById('bookingForm')) {
         initRentalTotals();
         initDeliveryToggle();
         initCityDistanceEstimate();
         handleFormSubmission('bookingForm', 'https://formspree.io/f/xjggwkja');
     }
 
-    if (currentPage === 'contact.html') {
+    if (document.getElementById('contactForm')) {
         initContactDeliveryToggle();
         handleFormSubmission('contactForm', 'https://formspree.io/f/xjggwkja');
     }
 
-    if (currentPage === 'index.html') {
+    if (document.getElementById('stats') || window.location.pathname.endsWith('index.html')) {
         initStatsAnimation();
     }
 
@@ -36,7 +35,6 @@ function showSelectionScreen() {
     document.getElementById('packagesSection').style.display = 'none';
     document.querySelector('.booking-form-section').style.display = 'none';
     
-    // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -46,10 +44,8 @@ function showIndividualItems() {
     document.getElementById('packagesSection').style.display = 'none';
     document.querySelector('.booking-form-section').style.display = 'block';
     
-    // Reset package selections
     resetPackageSelections();
     
-    // Recalculate individual items total
     if (typeof calculateTotal !== 'undefined') {
         setTimeout(() => {
             const inputs = document.querySelectorAll('#individualItemsSection input[type="number"]');
@@ -68,10 +64,7 @@ function showPackages() {
     document.getElementById('packagesSection').style.display = 'block';
     document.querySelector('.booking-form-section').style.display = 'block';
     
-    // Reset individual item quantities
     resetIndividualItems();
-    
-    // Calculate package total
     calculatePackageTotal();
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -128,7 +121,6 @@ function calculatePackageTotal() {
         });
     }
     
-    // Update package total display
     const packageTotalPrice = document.getElementById('packageTotalPrice');
     const finalTotal = document.getElementById('finalTotal');
     
@@ -140,7 +132,6 @@ function calculatePackageTotal() {
         finalTotal.textContent = `$${total.toFixed(2)}`;
     }
     
-    // Update selected packages summary
     updatePackageSummary(selectedPackages, total);
 }
 
@@ -159,7 +150,6 @@ function updatePackageSummary(packages, total) {
     
     summaryDiv.style.display = 'block';
     
-    // Update title for packages
     if (summaryTitle) {
         summaryTitle.textContent = 'Your Selected Package(s):';
     }
@@ -251,13 +241,11 @@ function initRentalTotals() {
             }
         });
 
-        // Update totals
         document.getElementById('totalPrice').textContent =
             `$${subtotal.toFixed(2)}`;
         document.getElementById('finalTotal').textContent =
             `$${subtotal.toFixed(2)}`;
         
-        // Update selected items summary
         updateSelectedItemsList(selectedItems, subtotal);
     }
 
@@ -291,14 +279,12 @@ function initRentalTotals() {
             input.addEventListener('input', calculateTotal);
             input.addEventListener('input', () => enforceMaxQuantity(input));
             
-            // Clear 0 when user focuses and starts typing
             input.addEventListener('focus', function() {
                 if (this.value === '0') {
                     this.value = '';
                 }
             });
             
-            // Restore 0 if left empty
             input.addEventListener('blur', function() {
                 if (this.value === '') {
                     this.value = '0';
@@ -319,25 +305,21 @@ function enforceMaxQuantity(input) {
     const min = parseInt(input.getAttribute('min')) || 0;
     let value = parseInt(input.value);
     
-    // Remove any existing max message
     const existingMsg = input.parentElement.querySelector('.max-qty-message');
     if (existingMsg) {
         existingMsg.remove();
     }
     
-    // Enforce max limit - don't allow typing beyond max
     if (value > max) {
         input.value = max;
         value = max;
     }
     
-    // Enforce min limit
     if (value < min || isNaN(value)) {
         input.value = min;
         value = min;
     }
     
-    // Show message if at max
     if (value >= max && max > 0) {
         const message = document.createElement('div');
         message.className = 'max-qty-message';
@@ -375,16 +357,14 @@ function initDeliveryToggle() {
             const isDelivery = radio.value === 'yes' && radio.checked;
             section.style.display = isDelivery ? 'block' : 'none';
             
-            // Toggle delivery fee notice
             if (deliveryFeeNotice) {
                 deliveryFeeNotice.style.display = isDelivery ? 'block' : 'none';
             }
             
-            // Toggle required attribute on address field
             if (addressInput) {
                 addressInput.required = isDelivery;
                 if (!isDelivery) {
-                    addressInput.value = ''; // Clear address if switching to pickup
+                    addressInput.value = '';
                 }
             }
         });
@@ -540,7 +520,6 @@ function formatSelectionsForEmail() {
     let packagesText = '';
     let orderTotal = 0;
     
-    // Check if individual items section is visible
     if (individualItemsSection && individualItemsSection.style.display !== 'none') {
         const { items, total } = getSelectedIndividualItems();
         orderTotal = total;
@@ -554,7 +533,6 @@ function formatSelectionsForEmail() {
         }
     }
     
-    // Check if packages section is visible
     if (packagesSection && packagesSection.style.display !== 'none') {
         const { packages, total } = getSelectedPackages();
         orderTotal = total;
@@ -581,11 +559,9 @@ function formatSelectionsForEmail() {
 function populateHiddenBookingFields(form) {
     const { itemsText, packagesText, orderTotal } = formatSelectionsForEmail();
     
-    // Remove any existing hidden booking fields to avoid duplicates
     const existingFields = form.querySelectorAll('[data-booking-field]');
     existingFields.forEach(field => field.remove());
     
-    // Create and append hidden fields with booking data
     const fieldsToAdd = [
         { name: 'Selected_Individual_Items', value: itemsText },
         { name: 'Selected_Packages', value: packagesText },
@@ -603,7 +579,7 @@ function populateHiddenBookingFields(form) {
 }
 
 // ========================================
-// FORMSPREE HANDLER
+// FORMSPREE HANDLER (FIXED)
 // ========================================
 function handleFormSubmission(formId, formspreeUrl) {
     const form = document.getElementById(formId);
@@ -614,14 +590,7 @@ function handleFormSubmission(formId, formspreeUrl) {
 
     const messageDiv = document.getElementById('formMessage');
     const submitButton = form.querySelector('button[type="submit"]');
-
-    if (!messageDiv) {
-        console.error('formMessage div not found');
-    }
-
-    if (!submitButton) {
-        console.error('Submit button not found');
-    }
+    const originalButtonText = submitButton ? submitButton.textContent : '';
 
     console.log(`Form submission handler attached to ${formId}`);
 
@@ -629,10 +598,8 @@ function handleFormSubmission(formId, formspreeUrl) {
         e.preventDefault();
         console.log('Form submission started');
 
-        // Populate hidden fields with current booking selections
         if (formId === 'bookingForm') {
             populateHiddenBookingFields(form);
-            console.log('Hidden booking fields populated');
         }
 
         if (submitButton) {
@@ -642,10 +609,8 @@ function handleFormSubmission(formId, formspreeUrl) {
 
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
-        console.log('Form data:', data);
 
         try {
-            console.log('Sending to Formspree:', formspreeUrl);
             const res = await fetch(formspreeUrl, {
                 method: 'POST',
                 headers: {
@@ -655,42 +620,27 @@ function handleFormSubmission(formId, formspreeUrl) {
                 body: JSON.stringify(data)
             });
 
-            console.log('Formspree response status:', res.status);
-
-            if (!res.ok) {
-                const errorText = await res.text();
-                console.error('Formspree error:', errorText);
-                throw new Error(`HTTP ${res.status}`);
-            }
-
-            const responseData = await res.json();
-            console.log('Formspree success:', responseData);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
             if (messageDiv) {
-                messageDiv.textContent =
-                    "✅ Thank you! Your booking request was sent.";
+                messageDiv.textContent = "✅ Thank you! Your booking request was sent.";
                 messageDiv.className = "form-message success show";
-                
-                // Scroll message into view
                 messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
-            
+
             form.reset();
         } catch (error) {
             console.error('Submission error:', error);
-            
+
             if (messageDiv) {
-                messageDiv.textContent =
-                    "❌ Something went wrong. Please try again.";
+                messageDiv.textContent = "❌ Something went wrong. Please try again.";
                 messageDiv.className = "form-message error show";
-                
-                // Scroll message into view
                 messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         } finally {
             if (submitButton) {
                 submitButton.disabled = false;
-                submitButton.textContent = 'Submit Booking Request';
+                submitButton.textContent = originalButtonText;
             }
         }
     });
@@ -729,7 +679,7 @@ function initStatsAnimation() {
             if (entry.isIntersecting) {
                 setTimeout(() => {
                     entry.target.classList.add('animate-in');
-                }, index * 150); // Stagger animation by 150ms
+                }, index * 150);
                 observer.unobserve(entry.target);
             }
         });
