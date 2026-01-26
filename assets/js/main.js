@@ -454,6 +454,155 @@ function initContactDeliveryToggle() {
 }
 
 // ========================================
+// HELPER: EXTRACT SELECTED INDIVIDUAL ITEMS
+// ========================================
+function getSelectedIndividualItems() {
+    const prices = {
+        'white-chairs': 1.5,
+        'adult-tables': 10,
+        'kids-chairs': 3,
+        'kids-tables': 10,
+        'wooden-stools': 2,
+        'white-resin-chairs': 2.5,
+        'cherry-backdrop': 60
+    };
+
+    const itemNames = {
+        'white-chairs': 'White Plastic Chairs',
+        'adult-tables': 'Plastic Tables (Adult)',
+        'kids-chairs': 'Kids Pink Chiavari Chairs',
+        'kids-tables': 'Kids Tables',
+        'wooden-stools': 'Wooden Kids Stools',
+        'white-resin-chairs': 'Kids White Resin Chairs',
+        'cherry-backdrop': 'Cherry Backdrop'
+    };
+
+    const selectedItems = [];
+    let total = 0;
+
+    Object.keys(prices).forEach(id => {
+        const input = document.getElementById(id);
+        const qty = parseInt(input?.value || 0);
+        if (qty > 0) {
+            const itemTotal = qty * prices[id];
+            total += itemTotal;
+            selectedItems.push({
+                name: itemNames[id],
+                qty: qty,
+                price: prices[id],
+                total: itemTotal
+            });
+        }
+    });
+
+    return { items: selectedItems, total: total };
+}
+
+// ========================================
+// HELPER: EXTRACT SELECTED PACKAGES
+// ========================================
+function getSelectedPackages() {
+    const superheroCheckbox = document.getElementById('superhero-package');
+    const princessCheckbox = document.getElementById('princess-package');
+    
+    const selectedPackages = [];
+    let total = 0;
+    
+    if (superheroCheckbox && superheroCheckbox.checked) {
+        const price = parseFloat(superheroCheckbox.value);
+        total += price;
+        selectedPackages.push({
+            name: 'Superhero Party Package',
+            price: price
+        });
+    }
+    
+    if (princessCheckbox && princessCheckbox.checked) {
+        const price = parseFloat(princessCheckbox.value);
+        total += price;
+        selectedPackages.push({
+            name: 'Princess Party Package',
+            price: price
+        });
+    }
+    
+    return { packages: selectedPackages, total: total };
+}
+
+// ========================================
+// HELPER: FORMAT SELECTIONS FOR EMAIL
+// ========================================
+function formatSelectionsForEmail() {
+    const individualItemsSection = document.getElementById('individualItemsSection');
+    const packagesSection = document.getElementById('packagesSection');
+    
+    let itemsText = '';
+    let packagesText = '';
+    let orderTotal = 0;
+    
+    // Check if individual items section is visible
+    if (individualItemsSection && individualItemsSection.style.display !== 'none') {
+        const { items, total } = getSelectedIndividualItems();
+        orderTotal = total;
+        
+        if (items.length > 0) {
+            itemsText = items.map(item => 
+                `${item.name} - Qty: ${item.qty} @ $${item.price.toFixed(2)} each = $${item.total.toFixed(2)}`
+            ).join('\n');
+        } else {
+            itemsText = 'No individual items selected';
+        }
+    }
+    
+    // Check if packages section is visible
+    if (packagesSection && packagesSection.style.display !== 'none') {
+        const { packages, total } = getSelectedPackages();
+        orderTotal = total;
+        
+        if (packages.length > 0) {
+            packagesText = packages.map(pkg => 
+                `${pkg.name} - $${pkg.price.toFixed(2)}`
+            ).join('\n');
+        } else {
+            packagesText = 'No packages selected';
+        }
+    }
+    
+    return {
+        itemsText: itemsText || 'N/A',
+        packagesText: packagesText || 'N/A',
+        orderTotal: orderTotal
+    };
+}
+
+// ========================================
+// HELPER: POPULATE HIDDEN FORM FIELDS
+// ========================================
+function populateHiddenBookingFields(form) {
+    const { itemsText, packagesText, orderTotal } = formatSelectionsForEmail();
+    
+    // Remove any existing hidden booking fields to avoid duplicates
+    const existingFields = form.querySelectorAll('[data-booking-field]');
+    existingFields.forEach(field => field.remove());
+    
+    // Create and append hidden fields with booking data
+    const fieldsToAdd = [
+        { name: 'Selected_Individual_Items', value: itemsText },
+        { name: 'Selected_Packages', value: packagesText },
+        { name: 'Order_Total', value: `$${orderTotal.toFixed(2)}` }
+    ];
+    
+    fieldsToAdd.forEach(fieldData => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = fieldData.name;
+        input.value = fieldData.value;
+        input.setAttribute('data-booking-field', 'true');
+        form.appendChild(input);
+    });
+}
+
+// ========================================
 // FORMSPREE HANDLER
 // ========================================
 function handleFormSubmission(formId, formspreeUrl) {
@@ -465,6 +614,11 @@ function handleFormSubmission(formId, formspreeUrl) {
 
     form.addEventListener('submit', async e => {
         e.preventDefault();
+
+        // Populate hidden fields with current booking selections
+        if (formId === 'bookingForm') {
+            populateHiddenBookingFields(form);
+        }
 
         submitButton.disabled = true;
         submitButton.textContent = 'Sending...';
