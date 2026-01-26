@@ -12,12 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
         initRentalTotals();
         initDeliveryToggle();
         initCityDistanceEstimate();
-        handleFormSubmission('bookingForm', 'Happymemoriessd@gmail.com');
+        handleFormSubmission('bookingForm', 'https://formspree.io/f/xjggwkja');
     }
 
     if (currentPage === 'contact.html') {
         initContactDeliveryToggle();
-        handleFormSubmission('contactForm', 'Happymemoriessd@gmail.com');
+        handleFormSubmission('contactForm', 'https://formspree.io/f/xjggwkja');
     }
 
     if (currentPage === 'index.html') {
@@ -454,62 +454,67 @@ function initContactDeliveryToggle() {
 }
 
 // ========================================
-// EMAIL FORM HANDLER
+// FORMSPREE FORM HANDLER
 // ========================================
-function handleFormSubmission(formId, email) {
+function handleFormSubmission(formId, formspreeUrl) {
     const form = document.getElementById(formId);
     if (!form) return;
 
+    const messageDiv = document.getElementById('formMessage');
     const submitButton = form.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton ? submitButton.textContent : '';
 
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Collect form data
-        const formData = new FormData(form);
-        let emailBody = '';
-        
-        for (let [key, value] of formData.entries()) {
-            emailBody += `${key}: ${value}\n`;
+        // Populate booking details if this is the booking form
+        if (formId === 'bookingForm' && typeof populateHiddenBookingFields === 'function') {
+            populateHiddenBookingFields(form);
         }
 
-        // Create mailto link
-        const subject = formId === 'bookingForm' ? 'Booking Request' : 'Contact Form Submission';
-        const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-        
-        // Open email client
-        window.location.href = mailtoLink;
-        
-        // Show thank you message below submit button
-        let thankYouMsg = submitButton.parentElement.querySelector('.thank-you-message');
-        
-        if (!thankYouMsg) {
-            thankYouMsg = document.createElement('div');
-            thankYouMsg.className = 'thank-you-message';
-            thankYouMsg.style.cssText = `
-                background: #d4edda;
-                border: 2px solid #28a745;
-                border-radius: 8px;
-                padding: 1rem 1.5rem;
-                margin-top: 1rem;
-                text-align: center;
-                color: #155724;
-                font-size: 1.1rem;
-                font-weight: 600;
-                animation: fadeIn 0.5s ease-in;
-            `;
-            thankYouMsg.innerHTML = '✅ Thank you! Your email client will open to send your booking request.';
-            submitButton.parentElement.appendChild(thankYouMsg);
-        } else {
-            thankYouMsg.style.display = 'block';
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
         }
-        
-        // Reset form after a short delay
-        setTimeout(() => {
+
+        try {
+            const response = await fetch(formspreeUrl, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(
+                    Object.fromEntries(new FormData(form).entries())
+                )
+            });
+
+            if (!response.ok) throw new Error('Formspree error');
+
+            if (messageDiv) {
+                messageDiv.textContent = '✅ Thank you! We received your request and will contact you shortly.';
+                messageDiv.className = 'form-message success show';
+                messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
             form.reset();
-        }, 1000);
+
+        } catch (error) {
+            if (messageDiv) {
+                messageDiv.textContent = '❌ Something went wrong. Please try again.';
+                messageDiv.className = 'form-message error show';
+                messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        } finally {
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+            }
+        }
     });
 }
+
+
 
 // ========================================
 // SMOOTH SCROLL
