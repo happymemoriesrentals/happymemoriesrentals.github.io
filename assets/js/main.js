@@ -516,19 +516,54 @@ function handleFormSubmission(formId, formspreeUrl) {
             console.log('Attempting to send to Formspree...');
             const formData = new FormData(form);
             
-            // If this is the booking form, populate hidden fields with selected items
+            // If this is the booking form, add detailed item breakdown
             if (formId === 'bookingForm') {
-                const selectedItemsList = document.getElementById('selectedItemsList');
                 const finalTotal = document.getElementById('finalTotal');
                 
-                if (selectedItemsList && finalTotal) {
-                    // Get text content of selected items
-                    const itemsText = selectedItemsList.innerText || 'No items selected';
-                    const totalText = finalTotal.innerText || '$0.00';
-                    
-                    // Update hidden fields
-                    formData.set('selected_items', itemsText);
-                    formData.set('estimated_total', totalText);
+                // Get all quantity inputs for individual items
+                const itemInputs = {
+                    'white-chairs': 'White Plastic Chairs',
+                    'adult-tables': 'Plastic Tables (Adult)',
+                    'kids-chairs': 'Kids Pink Chiavari Chairs',
+                    'kids-tables': 'Kids Tables',
+                    'wooden-stools': 'Wooden Kids Stools',
+                    'white-resin-chairs': 'Kids White Resin Chairs',
+                    'cherry-backdrop': 'Cherry Backdrop'
+                };
+                
+                // Add each item with quantity to form data
+                let itemCount = 0;
+                Object.keys(itemInputs).forEach(id => {
+                    const input = document.getElementById(id);
+                    if (input) {
+                        const qty = parseInt(input.value || 0);
+                        if (qty > 0) {
+                            itemCount++;
+                            formData.append(`Item ${itemCount}`, `${itemInputs[id]} - Quantity: ${qty}`);
+                        }
+                    }
+                });
+                
+                // Check for package selections
+                const superheroCheckbox = document.getElementById('superhero-package');
+                const princessCheckbox = document.getElementById('princess-package');
+                
+                if (superheroCheckbox && superheroCheckbox.checked) {
+                    itemCount++;
+                    formData.append(`Item ${itemCount}`, 'Superhero Party Package');
+                }
+                
+                if (princessCheckbox && princessCheckbox.checked) {
+                    itemCount++;
+                    formData.append(`Item ${itemCount}`, 'Princess Party Package');
+                }
+                
+                // Add total items count
+                formData.append('Total Items Selected', itemCount > 0 ? `${itemCount} item(s)` : 'No items selected');
+                
+                // Add estimated total
+                if (finalTotal) {
+                    formData.append('Estimated Total', finalTotal.innerText || '$0.00');
                 }
             }
             
