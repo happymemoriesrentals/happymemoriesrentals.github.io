@@ -369,7 +369,7 @@ function enforceMaxQuantity(input) {
 // ========================================
 function initDeliveryToggle() {
     const radios = document.querySelectorAll(
-        'input[name="deliveryOption"]'
+        'input[name="Delivery Needed"]'
     );
     const section = document.getElementById('deliverySection');
     const addressInput = document.getElementById('eventAddress');
@@ -379,7 +379,7 @@ function initDeliveryToggle() {
 
     radios.forEach(radio => {
         radio.addEventListener('change', () => {
-            const isDelivery = radio.value === 'yes' && radio.checked;
+            const isDelivery = radio.value.includes('Yes') && radio.checked;
             section.style.display = isDelivery ? 'block' : 'none';
             
             // Toggle delivery fee notice
@@ -520,6 +520,11 @@ function handleFormSubmission(formId, formspreeUrl) {
             if (formId === 'bookingForm') {
                 const finalTotal = document.getElementById('finalTotal');
                 
+                // Add a separator for rental items section
+                formData.append('═══════════════════', '═══════════════════');
+                formData.append('📋 RENTAL ITEMS', '📋 RENTAL ITEMS');
+                formData.append('═══════════════════', '═══════════════════');
+                
                 // Get all quantity inputs for individual items
                 const itemInputs = {
                     'white-chairs': 'White Plastic Chairs',
@@ -539,7 +544,7 @@ function handleFormSubmission(formId, formspreeUrl) {
                         const qty = parseInt(input.value || 0);
                         if (qty > 0) {
                             itemCount++;
-                            formData.append(`Item ${itemCount}`, `${itemInputs[id]} - Quantity: ${qty}`);
+                            formData.append(`${itemInputs[id]}`, `Quantity: ${qty}`);
                         }
                     }
                 });
@@ -550,20 +555,23 @@ function handleFormSubmission(formId, formspreeUrl) {
                 
                 if (superheroCheckbox && superheroCheckbox.checked) {
                     itemCount++;
-                    formData.append(`Item ${itemCount}`, 'Superhero Party Package');
+                    formData.append('Superhero Party Package', '✓ SELECTED');
                 }
                 
                 if (princessCheckbox && princessCheckbox.checked) {
                     itemCount++;
-                    formData.append(`Item ${itemCount}`, 'Princess Party Package');
+                    formData.append('Princess Party Package', '✓ SELECTED');
                 }
                 
-                // Add total items count
-                formData.append('Total Items Selected', itemCount > 0 ? `${itemCount} item(s)` : 'No items selected');
+                // Add summary section
+                formData.append('───────────────────', '───────────────────');
+                formData.append('📊 BOOKING SUMMARY', '📊 BOOKING SUMMARY');
+                formData.append('───────────────────', '───────────────────');
+                formData.append('Total Items/Packages', itemCount > 0 ? `${itemCount}` : 'No items selected');
                 
                 // Add estimated total
                 if (finalTotal) {
-                    formData.append('Estimated Total', finalTotal.innerText || '$0.00');
+                    formData.append('💰 Estimated Total', finalTotal.innerText || '$0.00');
                 }
             }
             

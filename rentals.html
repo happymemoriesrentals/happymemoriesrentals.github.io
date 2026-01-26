@@ -282,33 +282,33 @@
     <!-- Customer Info -->
     <div class="form-group">
         <label>Full Name *</label>
-        <input type="text" name="name" required>
+        <input type="text" name="Customer Name" required>
     </div>
 
     <div class="form-group">
         <label>Email *</label>
-        <input type="email" name="email" required>
+        <input type="email" name="Customer Email" required>
     </div>
 
     <div class="form-group">
         <label>Phone *</label>
-        <input type="tel" name="phone" required>
+        <input type="tel" name="Customer Phone" required>
     </div>
 
     <div class="form-group">
         <label>Event Date *</label>
-        <input type="date" name="event-date" required>
+        <input type="date" name="Event Date" required>
     </div>
 
     <!-- DELIVERY YES/NO -->
     <div class="form-group">
         <label>Do you need delivery? *</label><br>
         <label style="display:inline-block;margin-right:2rem;">
-            <input type="radio" name="deliveryOption" value="no" checked>
+            <input type="radio" name="Delivery Needed" value="No - Customer will pick up" checked>
             No (I will pick up)
         </label>
         <label style="display:inline-block;">
-            <input type="radio" name="deliveryOption" value="yes">
+            <input type="radio" name="Delivery Needed" value="Yes - Please deliver">
             Yes (Please deliver)
         </label>
     </div>
@@ -332,7 +332,7 @@
             <label>Event/Party Address *</label>
             <input
                 type="text"
-                name="eventAddress"
+                name="Event Address"
                 id="eventAddress"
                 placeholder="Enter the full address for delivery"
             >
@@ -357,7 +357,7 @@
     <div class="form-group">
         <label>Additional Message or Special Requests (Optional)</label>
         <textarea 
-            name="message" 
+            name="Additional Message/Special Requests" 
             rows="5" 
             placeholder="Let us know if you have any special requests, questions, or additional details about your event..."
             style="width:100%;padding:0.8rem;border:2px solid var(--border-color);border-radius:8px;font-family:inherit;font-size:1rem;resize:vertical;transition:border-color 0.3s;"
