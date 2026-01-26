@@ -6,26 +6,25 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     setActiveNavLink();
 
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-
-    if (currentPage === 'rentals.html') {
+    if (document.getElementById('bookingForm')) {
         initRentalTotals();
         initDeliveryToggle();
         initCityDistanceEstimate();
         handleFormSubmission('bookingForm', 'https://formspree.io/f/xjggwkja');
     }
 
-    if (currentPage === 'contact.html') {
+    if (document.getElementById('contactForm')) {
         initContactDeliveryToggle();
         handleFormSubmission('contactForm', 'https://formspree.io/f/xjggwkja');
     }
 
-    if (currentPage === 'index.html') {
+    if (document.querySelector('[data-animate]')) {
         initStatsAnimation();
     }
 
     initSmoothScroll();
 });
+
 
 // ========================================
 // VIEW SWITCHING (Rentals Page)
