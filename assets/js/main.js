@@ -834,7 +834,9 @@ function animateCount(element, target) {
         const easeOutQuad = progress * (2 - progress);
         const currentCount = Math.floor(startValue + (target - startValue) * easeOutQuad);
         
-        if (target === 3) {
+        if (target === 100) {
+            element.textContent = currentCount + '+';
+        } else if (target === 3) {
             element.textContent = currentCount + '+';
         } else if (target === 5) {
             element.textContent = currentCount + ' Star';
@@ -844,7 +846,9 @@ function animateCount(element, target) {
             requestAnimationFrame(updateCount);
         } else {
             // Ensure final value is set
-            if (target === 3) {
+            if (target === 100) {
+                element.textContent = '100+';
+            } else if (target === 3) {
                 element.textContent = '3+';
             } else if (target === 5) {
                 element.textContent = '5 Star';
