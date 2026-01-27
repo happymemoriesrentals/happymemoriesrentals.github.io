@@ -105,14 +105,14 @@ nav {
    ======================================== */
 .hero {
     background: linear-gradient(135deg, 
-        #FFD4E5 0%, 
-        #FFC1D9 15%,
-        #FFB3D1 30%,
-        #FFA6CC 45%,
-        #FF99C7 60%,
-        #FF8EC2 75%,
-        #FF85BE 90%,
-        #FF7CBA 100%);
+        #FFE8F0 0%, 
+        #FFDCE8 15%,
+        #FFD0E0 30%,
+        #FFC4D8 45%,
+        #FFB8D0 60%,
+        #FFACC8 75%,
+        #FFA0C0 90%,
+        #FF94B8 100%);
     color: var(--dark-text);
     text-align: center;
     padding: 2rem 2rem;
