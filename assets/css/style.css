@@ -286,8 +286,8 @@ nav {
 /* Party decoration elements */
 .party-decor {
     position: absolute;
-    font-size: 2.5rem;
-    opacity: 0.15;
+    font-size: 3.5rem;
+    opacity: 0.28;
     pointer-events: none;
     animation: float 6s ease-in-out infinite;
 }
@@ -321,58 +321,58 @@ nav {
 
 /* Balloon positioning and animations */
 .balloon-1 {
-    top: 5%;
-    left: 5%;
+    top: 20%;
+    left: 8%;
     animation: float 8s ease-in-out infinite;
 }
 
 .balloon-2 {
-    top: 15%;
-    right: 8%;
+    top: 25%;
+    right: 10%;
     animation: float-slow 10s ease-in-out infinite;
 }
 
 .balloon-3 {
-    bottom: 20%;
-    right: 5%;
+    bottom: 15%;
+    right: 12%;
     animation: float 7s ease-in-out infinite;
 }
 
 /* String/sparkle positioning */
 .string-1 {
-    top: 10%;
-    left: 15%;
-    font-size: 2rem;
+    top: 30%;
+    left: 12%;
+    font-size: 2.8rem;
     animation: drift 8s ease-in-out infinite;
 }
 
 .string-2 {
-    bottom: 15%;
-    left: 8%;
-    font-size: 1.8rem;
+    bottom: 20%;
+    left: 10%;
+    font-size: 2.5rem;
     animation: drift 9s ease-in-out infinite reverse;
 }
 
 /* Confetti positioning */
 .confetti-1 {
-    top: 20%;
-    right: 20%;
-    font-size: 2.2rem;
+    top: 35%;
+    right: 15%;
+    font-size: 3.2rem;
     animation: float 9s ease-in-out infinite;
 }
 
 .confetti-2 {
-    bottom: 25%;
-    right: 15%;
-    font-size: 2rem;
+    bottom: 30%;
+    right: 12%;
+    font-size: 3rem;
     animation: float-slow 11s ease-in-out infinite;
 }
 
 /* Star positioning */
 .star-1 {
-    top: 30%;
-    left: 3%;
-    font-size: 1.8rem;
+    top: 40%;
+    left: 6%;
+    font-size: 2.8rem;
     animation: float 7s ease-in-out infinite;
 }
 
