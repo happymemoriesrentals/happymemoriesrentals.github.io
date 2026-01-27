@@ -264,6 +264,25 @@ nav {
     letter-spacing: 0.5px;
 }
 
+.star-display {
+    display: flex;
+    gap: 0.3rem;
+    justify-content: center;
+    margin-top: 0.8rem;
+    font-size: 1.5rem;
+}
+
+.animated-star {
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s ease;
+}
+
+.animated-star.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
 @keyframes float {
     0%, 100% {
         transform: translateY(0);

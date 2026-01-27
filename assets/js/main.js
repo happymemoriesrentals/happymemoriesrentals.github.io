@@ -798,6 +798,19 @@ function initStatsAnimation() {
             if (entry.isIntersecting) {
                 setTimeout(() => {
                     entry.target.classList.add('animate-in');
+                    
+                    // Trigger count-up animation for stat numbers
+                    const statNumber = entry.target.querySelector('[data-count]');
+                    if (statNumber) {
+                        const targetCount = parseInt(statNumber.getAttribute('data-count'));
+                        animateCount(statNumber, targetCount);
+                    }
+                    
+                    // Trigger star animation
+                    const stars = entry.target.querySelectorAll('.animated-star');
+                    if (stars.length > 0) {
+                        animateStars(stars);
+                    }
                 }, index * 150); // Stagger animation by 150ms
                 observer.unobserve(entry.target);
             }
@@ -805,4 +818,50 @@ function initStatsAnimation() {
     }, observerOptions);
 
     statBoxes.forEach(box => observer.observe(box));
+}
+
+function animateCount(element, target) {
+    const duration = 2000; // 2 seconds
+    const startTime = Date.now();
+    const startValue = 0;
+    
+    function updateCount() {
+        const currentTime = Date.now();
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function for smooth animation
+        const easeOutQuad = progress * (2 - progress);
+        const currentCount = Math.floor(startValue + (target - startValue) * easeOutQuad);
+        
+        if (target === 3) {
+            element.textContent = currentCount + '+';
+        } else if (target === 5) {
+            element.textContent = currentCount + ' Star';
+        }
+        
+        if (progress < 1) {
+            requestAnimationFrame(updateCount);
+        } else {
+            // Ensure final value is set
+            if (target === 3) {
+                element.textContent = '3+';
+            } else if (target === 5) {
+                element.textContent = '5 Star';
+            }
+        }
+    }
+    
+    requestAnimationFrame(updateCount);
+}
+
+function animateStars(stars) {
+    const duration = 2000; // 2 seconds total to match count animation
+    const delayBetweenStars = duration / stars.length;
+    
+    stars.forEach((star, index) => {
+        setTimeout(() => {
+            star.classList.add('show');
+        }, index * delayBetweenStars);
+    });
 }
