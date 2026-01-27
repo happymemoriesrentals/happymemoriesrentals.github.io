@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('🔥 DOMContentLoaded event fired');
     initMobileMenu();
     setActiveNavLink();
+    initQuantityButtons();
 
     if (document.getElementById('bookingForm')) {
         console.log('🔥 bookingForm found, initializing...');
@@ -179,6 +180,46 @@ function updatePackageSummary(packages, total) {
     `).join('');
     
     summaryTotalEl.textContent = `$${total.toFixed(2)}`;
+}
+
+// ========================================
+// QUANTITY BUTTONS
+// ========================================
+function initQuantityButtons() {
+    const plusButtons = document.querySelectorAll('.qty-btn.plus');
+    const minusButtons = document.querySelectorAll('.qty-btn.minus');
+    
+    plusButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const inputId = btn.getAttribute('data-input');
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            
+            const max = parseInt(input.getAttribute('max'));
+            const current = parseInt(input.value) || 0;
+            
+            if (current < max) {
+                input.value = current + 1;
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+        });
+    });
+    
+    minusButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const inputId = btn.getAttribute('data-input');
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            
+            const min = parseInt(input.getAttribute('min'));
+            const current = parseInt(input.value) || 0;
+            
+            if (current > min) {
+                input.value = current - 1;
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+        });
+    });
 }
 
 // ========================================

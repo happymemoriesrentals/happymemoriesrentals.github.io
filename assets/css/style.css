@@ -654,24 +654,65 @@ nav {
     font-size: 1rem;
 }
 
-.quantity-selector input {
-    width: 80px;
-    padding: 0.75rem;
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 0;
     border: 2px solid var(--border-color);
     border-radius: 10px;
+    overflow: hidden;
+    background: white;
+}
+
+.qty-btn {
+    width: 40px;
+    height: 48px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.qty-btn:hover {
+    background: var(--secondary-color);
+    transform: scale(1.05);
+}
+
+.qty-btn:active {
+    transform: scale(0.95);
+}
+
+.qty-btn.minus {
+    border-right: 1px solid var(--border-color);
+}
+
+.qty-btn.plus {
+    border-left: 1px solid var(--border-color);
+}
+
+.quantity-selector input {
+    width: 70px;
+    padding: 0.75rem 0.5rem;
+    border: none;
     text-align: center;
     font-size: 1.1rem;
     font-weight: 600;
-    transition: all 0.3s;
+    background: white;
 }
 
 /* Make spinner arrows bigger and easier to click */
 .quantity-selector input::-webkit-inner-spin-button,
 .quantity-selector input::-webkit-outer-spin-button {
-    opacity: 1;
-    height: 50px;
-    width: 30px;
-    cursor: pointer;
+    opacity: 0;
+    height: 0;
+    width: 0;
 }
 
 /* Firefox number input arrows */
@@ -682,8 +723,6 @@ nav {
 
 .quantity-selector input:focus {
     outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(246, 221, 227, 0.15);
 }
 
 /* ========================================
