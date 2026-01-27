@@ -657,6 +657,12 @@ nav {
 .quantity-controls {
     display: flex;
     align-items: center;
+    gap: 0.5rem;
+}
+
+.quantity-controls > div {
+    display: flex;
+    align-items: center;
     gap: 0;
     border: 2px solid var(--border-color);
     border-radius: 10px;
@@ -700,14 +706,16 @@ nav {
 .quantity-selector input {
     width: 70px;
     padding: 0.75rem 0.5rem;
-    border: none;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
     text-align: center;
     font-size: 1.1rem;
     font-weight: 600;
     background: white;
+    cursor: text;
 }
 
-/* Make spinner arrows bigger and easier to click */
+/* Make spinner arrows hidden */
 .quantity-selector input::-webkit-inner-spin-button,
 .quantity-selector input::-webkit-outer-spin-button {
     opacity: 0;
@@ -723,6 +731,8 @@ nav {
 
 .quantity-selector input:focus {
     outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(246, 221, 227, 0.3);
 }
 
 /* ========================================

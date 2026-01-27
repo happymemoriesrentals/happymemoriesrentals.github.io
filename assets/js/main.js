@@ -188,6 +188,7 @@ function updatePackageSummary(packages, total) {
 function initQuantityButtons() {
     const plusButtons = document.querySelectorAll('.qty-btn.plus');
     const minusButtons = document.querySelectorAll('.qty-btn.minus');
+    const quantityInputs = document.querySelectorAll('.quantity-selector input[type="number"]');
     
     plusButtons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -216,6 +217,38 @@ function initQuantityButtons() {
             
             if (current > min) {
                 input.value = current - 1;
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+        });
+    });
+    
+    // Validate manual input
+    quantityInputs.forEach(input => {
+        input.addEventListener('input', (e) => {
+            const min = parseInt(input.getAttribute('min'));
+            const max = parseInt(input.getAttribute('max'));
+            let value = parseInt(input.value);
+            
+            // Handle empty or invalid input
+            if (isNaN(value) || input.value === '') {
+                return; // Let user type
+            }
+            
+            // Enforce min/max constraints
+            if (value < min) {
+                input.value = min;
+            } else if (value > max) {
+                input.value = max;
+            }
+        });
+        
+        // Final validation on blur (when user leaves the field)
+        input.addEventListener('blur', (e) => {
+            const min = parseInt(input.getAttribute('min'));
+            let value = parseInt(input.value);
+            
+            if (isNaN(value) || input.value === '') {
+                input.value = min;
                 input.dispatchEvent(new Event('input', { bubbles: true }));
             }
         });
