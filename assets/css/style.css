@@ -130,9 +130,9 @@ nav {
     width: 100%;
     height: auto;
     margin: 0 auto 2rem;
-    border-radius: 50%;
     display: block;
-    animation: popUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), glowPulse 2s ease-in-out infinite 0.6s;
+    background: transparent;
+    animation: popUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes fadeInScale {
