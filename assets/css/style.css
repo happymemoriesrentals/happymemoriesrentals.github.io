@@ -19,6 +19,19 @@
     --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
+/* Gradient Background - Used across sections */
+.gradient-bg {
+    background: linear-gradient(135deg, 
+        #FFE8F0 0%, 
+        #FFDCE8 15%,
+        #FFD0E0 30%,
+        #FFC4D8 45%,
+        #FFB8D0 60%,
+        #FFACC8 75%,
+        #FFA0C0 90%,
+        #FF94B8 100%);
+}
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -387,7 +400,15 @@ nav {
    Team Section
    ======================================== */
 .team-section {
-    background-color: var(--background-light);
+    background: linear-gradient(135deg, 
+        #FFE8F0 0%, 
+        #FFDCE8 15%,
+        #FFD0E0 30%,
+        #FFC4D8 45%,
+        #FFB8D0 60%,
+        #FFACC8 75%,
+        #FFA0C0 90%,
+        #FF94B8 100%);
     padding: 3rem 2rem;
     position: relative;
     overflow: hidden;
@@ -1094,7 +1115,15 @@ nav {
 }
 
 .package-includes {
-    background: var(--background-light);
+    background: linear-gradient(135deg, 
+        #FFE8F0 0%, 
+        #FFDCE8 15%,
+        #FFD0E0 30%,
+        #FFC4D8 45%,
+        #FFB8D0 60%,
+        #FFACC8 75%,
+        #FFA0C0 90%,
+        #FF94B8 100%);
     padding: 1.5rem;
     border-radius: 12px;
     margin-bottom: 1.5rem;
