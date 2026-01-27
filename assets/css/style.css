@@ -104,7 +104,15 @@ nav {
    Hero Section
    ======================================== */
 .hero {
-    background: linear-gradient(135deg, #F9E8EC 0%, #F6DDE3 100%);
+    background: linear-gradient(135deg, 
+        #FFD4E5 0%, 
+        #FFC1D9 15%,
+        #FFB3D1 30%,
+        #FFA6CC 45%,
+        #FF99C7 60%,
+        #FF8EC2 75%,
+        #FF85BE 90%,
+        #FF7CBA 100%);
     color: var(--dark-text);
     text-align: center;
     padding: 2rem 2rem;
@@ -113,6 +121,21 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 182, 193, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 192, 203, 0.3) 0%, transparent 40%);
+    pointer-events: none;
 }
 
 .hero-logo {
