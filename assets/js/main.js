@@ -183,79 +183,6 @@ function updatePackageSummary(packages, total) {
 }
 
 // ========================================
-// QUANTITY BUTTONS
-// ========================================
-function initQuantityButtons() {
-    const plusButtons = document.querySelectorAll('.qty-btn.plus');
-    const minusButtons = document.querySelectorAll('.qty-btn.minus');
-    const quantityInputs = document.querySelectorAll('.quantity-selector input[type="number"]');
-    
-    plusButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const inputId = btn.getAttribute('data-input');
-            const input = document.getElementById(inputId);
-            if (!input) return;
-            
-            const max = parseInt(input.getAttribute('max'));
-            const current = parseInt(input.value) || 0;
-            
-            if (current < max) {
-                input.value = current + 1;
-                input.dispatchEvent(new Event('input', { bubbles: true }));
-            }
-        });
-    });
-    
-    minusButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const inputId = btn.getAttribute('data-input');
-            const input = document.getElementById(inputId);
-            if (!input) return;
-            
-            const min = parseInt(input.getAttribute('min'));
-            const current = parseInt(input.value) || 0;
-            
-            if (current > min) {
-                input.value = current - 1;
-                input.dispatchEvent(new Event('input', { bubbles: true }));
-            }
-        });
-    });
-    
-    // Validate manual input
-    quantityInputs.forEach(input => {
-        input.addEventListener('input', (e) => {
-            const min = parseInt(input.getAttribute('min'));
-            const max = parseInt(input.getAttribute('max'));
-            let value = parseInt(input.value);
-            
-            // Handle empty or invalid input
-            if (isNaN(value) || input.value === '') {
-                return; // Let user type
-            }
-            
-            // Enforce min/max constraints
-            if (value < min) {
-                input.value = min;
-            } else if (value > max) {
-                input.value = max;
-            }
-        });
-        
-        // Final validation on blur (when user leaves the field)
-        input.addEventListener('blur', (e) => {
-            const min = parseInt(input.getAttribute('min'));
-            let value = parseInt(input.value);
-            
-            if (isNaN(value) || input.value === '') {
-                input.value = min;
-                input.dispatchEvent(new Event('input', { bubbles: true }));
-            }
-        });
-    });
-}
-
-// ========================================
 // MOBILE MENU
 // ========================================
 function initMobileMenu() {
@@ -695,7 +622,7 @@ function handleFormSubmission(formId, formspreeUrl) {
                 animation: fadeIn 0.5s ease-in;
                 box-shadow: 0 4px 6px rgba(40, 167, 69, 0.2);
             `;
-            thankYouBox.innerHTML = '✅ Thank you! Your booking request was sent successfully.';
+            thankYouBox.innerHTML = '✅ Success! Your booking request has been received.<br>Thank you! A member of our team will follow up with you shortly.';
             
             // Insert after submit button
             submitButton.insertAdjacentElement('afterend', thankYouBox);
