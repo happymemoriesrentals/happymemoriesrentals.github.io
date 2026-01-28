@@ -457,6 +457,13 @@ function initDeliveryToggle() {
             const isDelivery = radio.value.includes('Yes') && radio.checked;
             section.style.display = isDelivery ? 'block' : 'none';
             
+            // Make delivery info box smaller when delivery is selected
+            const deliveryInfoBox = section.querySelector('div[style*="#fff3cd"]');
+            if (deliveryInfoBox && isDelivery) {
+                deliveryInfoBox.style.padding = '1rem';
+                deliveryInfoBox.style.margin = '0.75rem 0';
+            }
+            
             // Toggle delivery fee notice
             if (deliveryFeeNotice) {
                 deliveryFeeNotice.style.display = isDelivery ? 'block' : 'none';
