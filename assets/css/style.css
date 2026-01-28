@@ -74,7 +74,7 @@ nav {
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bold;
     color: var(--primary-color);
     text-decoration: none;
@@ -527,6 +527,26 @@ nav {
     left: 6%;
     font-size: 2.8rem;
     animation: float 7s ease-in-out infinite;
+}
+
+.star-2 {
+    bottom: 25%;
+    right: 8%;
+    font-size: 2.5rem;
+    animation: float-slow 8s ease-in-out infinite;
+}
+
+.balloon-4 {
+    top: 20%;
+    left: 35%;
+    animation: float 9s ease-in-out infinite;
+}
+
+.confetti-3 {
+    top: 70%;
+    left: 20%;
+    font-size: 3.3rem;
+    animation: drift 10s ease-in-out infinite reverse;
 }
 
 .team-image-box {
