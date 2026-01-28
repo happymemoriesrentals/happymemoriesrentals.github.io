@@ -103,9 +103,7 @@ function resetIndividualItems() {
         input.value = 0;
     });
     
-    const totalPrice = document.getElementById('totalPrice');
     const finalTotal = document.getElementById('finalTotal');
-    if (totalPrice) totalPrice.textContent = '$0.00';
     if (finalTotal) finalTotal.textContent = '$0.00';
     
     const summaryDiv = document.getElementById('selectedItemsSummary');
@@ -335,10 +333,10 @@ function initRentalTotals() {
         });
 
         // Update totals
-        document.getElementById('totalPrice').textContent =
-            `$${subtotal.toFixed(2)}`;
-        document.getElementById('finalTotal').textContent =
-            `$${subtotal.toFixed(2)}`;
+        const finalTotal = document.getElementById('finalTotal');
+        if (finalTotal) {
+            finalTotal.textContent = `$${subtotal.toFixed(2)}`;
+        }
         
         // Update selected items summary
         updateSelectedItemsList(selectedItems, subtotal);
@@ -872,12 +870,10 @@ function handleFormSubmission(formId, formspreeUrl) {
             
             // Clear the estimated total display
             if (formId === 'bookingForm') {
-                const totalPrice = document.getElementById('totalPrice');
                 const finalTotal = document.getElementById('finalTotal');
                 const packageTotal = document.getElementById('packageTotalPrice');
                 const selectedSummary = document.getElementById('selectedItemsSummary');
                 
-                if (totalPrice) totalPrice.textContent = '$0.00';
                 if (finalTotal) finalTotal.textContent = '$0.00';
                 if (packageTotal) packageTotal.textContent = '$0.00';
                 if (selectedSummary) selectedSummary.style.display = 'none';
