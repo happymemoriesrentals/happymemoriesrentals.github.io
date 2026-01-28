@@ -22,14 +22,14 @@
 /* Gradient Background - Used across sections */
 .gradient-bg {
     background: linear-gradient(135deg, 
-        #FFE8F0 0%, 
-        #FFDCE8 15%,
-        #FFD0E0 30%,
-        #FFC4D8 45%,
-        #FFB8D0 60%,
-        #FFACC8 75%,
-        #FFA0C0 90%,
-        #FF94B8 100%);
+        #FFF0F5 0%, 
+        #FFE8F0 15%,
+        #FFE0E8 30%,
+        #FFD8E0 45%,
+        #FFD0D8 60%,
+        #FFC8D0 75%,
+        #FFC0C8 90%,
+        #FFB8C0 100%);
 }
 
 /* Reset and Base Styles */
@@ -120,14 +120,14 @@ nav {
    ======================================== */
 .hero {
     background: linear-gradient(135deg, 
-        #FFE8F0 0%, 
-        #FFDCE8 15%,
-        #FFD0E0 30%,
-        #FFC4D8 45%,
-        #FFB8D0 60%,
-        #FFACC8 75%,
-        #FFA0C0 90%,
-        #FF94B8 100%);
+        #FFF0F5 0%, 
+        #FFE8F0 15%,
+        #FFE0E8 30%,
+        #FFD8E0 45%,
+        #FFD0D8 60%,
+        #FFC8D0 75%,
+        #FFC0C8 90%,
+        #FFB8C0 100%);
     color: var(--dark-text);
     text-align: center;
     padding: 2rem 2rem;
