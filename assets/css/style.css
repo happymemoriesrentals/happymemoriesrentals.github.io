@@ -1427,7 +1427,10 @@ footer p {
 
 .contact-info h3 {
     color: var(--primary-color);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
 }
 
 .contact-info p {
