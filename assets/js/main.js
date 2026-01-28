@@ -455,46 +455,59 @@ function initDeliveryToggle() {
 
     if (!radios.length || !deliverySection) return;
 
-    radios.forEach(radio => {
-        radio.addEventListener('change', () => {
-            const isDelivery = radio.value.includes('Yes') && radio.checked;
-            deliverySection.style.display = isDelivery ? 'block' : 'none';
-            
-            // Show pickup section when No is selected
-            if (pickupSection) {
-                pickupSection.style.display = isDelivery ? 'none' : 'block';
-            }
-            
-            // Make delivery info box smaller when delivery is selected
-            const deliveryInfoBox = deliverySection.querySelector('div[style*="#fff3cd"]');
-            if (deliveryInfoBox && isDelivery) {
-                deliveryInfoBox.style.padding = '1rem';
-                deliveryInfoBox.style.margin = '0.75rem 0';
-            }
-            
-            // Toggle delivery fee notice
-            if (deliveryFeeNotice) {
-                deliveryFeeNotice.style.display = isDelivery ? 'block' : 'none';
-            }
-            
-            // Toggle required attribute on address field
-            if (addressInput) {
-                addressInput.required = isDelivery;
-                if (!isDelivery) {
-                    addressInput.value = ''; // Clear address if switching to pickup
-                }
-            }
-            
-            // Toggle required attribute on time fields
-            if (pickupTimeInput && dropoffTimeInput) {
-                pickupTimeInput.required = !isDelivery;
-                dropoffTimeInput.required = !isDelivery;
-                if (isDelivery) {
-                    pickupTimeInput.value = '';
-                    dropoffTimeInput.value = '';
-                }
+    // Function to update visibility based on selected radio
+    const updateVisibility = () => {
+        let isDelivery = false;
+        radios.forEach(radio => {
+            if (radio.checked) {
+                isDelivery = radio.value.includes('Yes');
             }
         });
+
+        deliverySection.style.display = isDelivery ? 'block' : 'none';
+        
+        // Show pickup section when No is selected
+        if (pickupSection) {
+            pickupSection.style.display = isDelivery ? 'none' : 'block';
+        }
+        
+        // Make delivery info box smaller when delivery is selected
+        const deliveryInfoBox = deliverySection.querySelector('div[style*="#fff3cd"]');
+        if (deliveryInfoBox && isDelivery) {
+            deliveryInfoBox.style.padding = '1rem';
+            deliveryInfoBox.style.margin = '0.75rem 0';
+        }
+        
+        // Toggle delivery fee notice
+        if (deliveryFeeNotice) {
+            deliveryFeeNotice.style.display = isDelivery ? 'block' : 'none';
+        }
+        
+        // Toggle required attribute on address field
+        if (addressInput) {
+            addressInput.required = isDelivery;
+            if (!isDelivery) {
+                addressInput.value = ''; // Clear address if switching to pickup
+            }
+        }
+        
+        // Toggle required attribute on time fields
+        if (pickupTimeInput && dropoffTimeInput) {
+            pickupTimeInput.required = !isDelivery;
+            dropoffTimeInput.required = !isDelivery;
+            if (isDelivery) {
+                pickupTimeInput.value = '';
+                dropoffTimeInput.value = '';
+            }
+        }
+    };
+
+    // Call on page load to initialize state
+    updateVisibility();
+
+    // Add change listeners
+    radios.forEach(radio => {
+        radio.addEventListener('change', updateVisibility);
     });
 }
 
