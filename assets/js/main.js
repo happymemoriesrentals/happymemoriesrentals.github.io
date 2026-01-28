@@ -566,7 +566,7 @@ function handleFormSubmission(formId, formspreeUrl) {
 
         if (submitButton) {
             submitButton.disabled = true;
-            submitButton.textContent = 'Sending...';
+            // Do not change button text, just disable
         }
 
         // Show instant optimistic feedback
