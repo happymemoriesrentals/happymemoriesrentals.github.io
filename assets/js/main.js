@@ -446,19 +446,27 @@ function initDeliveryToggle() {
     const radios = document.querySelectorAll(
         'input[name="Delivery Needed"]'
     );
-    const section = document.getElementById('deliverySection');
+    const deliverySection = document.getElementById('deliverySection');
+    const pickupSection = document.getElementById('pickupSection');
     const addressInput = document.getElementById('eventAddress');
     const deliveryFeeNotice = document.getElementById('deliveryFeeNotice');
+    const pickupTimeInput = document.getElementById('pickupTime');
+    const dropoffTimeInput = document.getElementById('dropoffTime');
 
-    if (!radios.length || !section) return;
+    if (!radios.length || !deliverySection) return;
 
     radios.forEach(radio => {
         radio.addEventListener('change', () => {
             const isDelivery = radio.value.includes('Yes') && radio.checked;
-            section.style.display = isDelivery ? 'block' : 'none';
+            deliverySection.style.display = isDelivery ? 'block' : 'none';
+            
+            // Show pickup section when No is selected
+            if (pickupSection) {
+                pickupSection.style.display = isDelivery ? 'none' : 'block';
+            }
             
             // Make delivery info box smaller when delivery is selected
-            const deliveryInfoBox = section.querySelector('div[style*="#fff3cd"]');
+            const deliveryInfoBox = deliverySection.querySelector('div[style*="#fff3cd"]');
             if (deliveryInfoBox && isDelivery) {
                 deliveryInfoBox.style.padding = '1rem';
                 deliveryInfoBox.style.margin = '0.75rem 0';
@@ -474,6 +482,16 @@ function initDeliveryToggle() {
                 addressInput.required = isDelivery;
                 if (!isDelivery) {
                     addressInput.value = ''; // Clear address if switching to pickup
+                }
+            }
+            
+            // Toggle required attribute on time fields
+            if (pickupTimeInput && dropoffTimeInput) {
+                pickupTimeInput.required = !isDelivery;
+                dropoffTimeInput.required = !isDelivery;
+                if (isDelivery) {
+                    pickupTimeInput.value = '';
+                    dropoffTimeInput.value = '';
                 }
             }
         });
@@ -654,6 +672,33 @@ function handleFormSubmission(formId, formspreeUrl) {
                 // Add estimated total
                 if (finalTotal) {
                     formData.append('💰 Estimated Total', finalTotal.innerText || '$0.00');
+                }
+                
+                // Add delivery/pickup information section
+                formData.append('───────────────────', '───────────────────');
+                formData.append('🚚 DELIVERY/PICKUP INFO', '🚚 DELIVERY/PICKUP INFO');
+                formData.append('───────────────────', '───────────────────');
+                
+                // Get delivery option
+                const deliveryRadios = document.querySelectorAll('input[name="Delivery Needed"]');
+                let deliveryOption = '';
+                deliveryRadios.forEach(radio => {
+                    if (radio.checked) {
+                        deliveryOption = radio.value;
+                    }
+                });
+                
+                if (deliveryOption) {
+                    formData.append('Delivery/Pickup Option', deliveryOption);
+                }
+                
+                // Add pickup/dropoff times if applicable
+                const pickupTimeInput = document.getElementById('pickupTime');
+                const dropoffTimeInput = document.getElementById('dropoffTime');
+                
+                if (pickupTimeInput && dropoffTimeInput && pickupTimeInput.value && dropoffTimeInput.value) {
+                    formData.append('📍 Pick Up Time', pickupTimeInput.value);
+                    formData.append('📍 Drop Off Time', dropoffTimeInput.value);
                 }
             }
             
