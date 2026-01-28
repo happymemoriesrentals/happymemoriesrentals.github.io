@@ -164,7 +164,7 @@ nav {
 }
 
 .trasn-logo {
-    max-width: 450px;
+    max-width: 550px;
     width: 100%;
     height: auto;
     margin: 0 auto 0.2rem;
@@ -273,15 +273,37 @@ nav {
     animation-fill-mode: forwards;
 }
 
+/* Scroll-triggered animation states */
+.hero-animate.scroll-trigger {
+    animation: none;
+}
+
+.hero-animate.scroll-trigger.in-view {
+    animation-play-state: running;
+}
+
 .hero .tagline.hero-animate {
+    animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s forwards paused;
+}
+
+.hero .tagline.hero-animate.in-view {
     animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s forwards;
 }
 
 .hero .hero-description.hero-animate {
+    animation: slideInLeft 0.7s ease-out 0.6s forwards paused;
+}
+
+.hero .hero-description.hero-animate.in-view {
     animation: slideInLeft 0.7s ease-out 0.6s forwards;
 }
 
 .hero .btn.hero-animate {
+    animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.9s forwards paused,
+                wobble 0.6s ease-in-out 1.7s paused;
+}
+
+.hero .btn.hero-animate.in-view {
     animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.9s forwards,
                 wobble 0.6s ease-in-out 1.7s;
 }

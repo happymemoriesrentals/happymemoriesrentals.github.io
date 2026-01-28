@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initSmoothScroll();
+    initHeroScrollAnimation();
 });
 
 
@@ -778,6 +779,48 @@ function initSmoothScroll() {
             }
         });
     });
+}
+
+// ========================================
+// HERO SCROLL ANIMATION
+// ========================================
+function initHeroScrollAnimation() {
+    // Only apply scroll animation on homepage
+    const isHomepage = window.location.pathname === '/' || window.location.pathname.endsWith('index.html') || window.location.pathname === '/index.html';
+    
+    if (!isHomepage) return;
+    
+    const heroSection = document.querySelector('.hero');
+    if (!heroSection) return;
+    
+    const heroAnimateElements = heroSection.querySelectorAll('.hero-animate');
+    if (heroAnimateElements.length === 0) return;
+    
+    // Add scroll-trigger class to prepare for scroll-based animation
+    heroAnimateElements.forEach(el => {
+        el.classList.add('scroll-trigger');
+    });
+    
+    // Create intersection observer to detect when hero comes into view
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Element is in view, trigger animations
+                heroAnimateElements.forEach(el => {
+                    el.classList.add('in-view');
+                });
+                // Stop observing once animation is triggered
+                observer.unobserve(heroSection);
+            }
+        });
+    }, observerOptions);
+    
+    observer.observe(heroSection);
 }
 
 // ========================================
