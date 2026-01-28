@@ -242,7 +242,7 @@
 
         </div>
 
-        <h2 style="text-align:center;margin-top:2rem;font-size:3rem;font-weight:bold;color:var(--primary-color);">
+        <h2 style="text-align:center;margin-top:2rem;font-size:3.5rem;font-weight:bold;color:#333;">
             Rental Subtotal: <span id="totalPrice">$0.00</span>
         </h2>
     </div>
@@ -435,6 +435,9 @@
             <h3 style="color:#0c5460;margin:0 0 1rem 0;font-size:1.3rem;display:flex;align-items:center;gap:0.5rem;">
                 🕐 <span>What time do you plan to pick up and drop off?</span>
             </h3>
+            <p style="color:#0c5460;font-size:0.85rem;margin:0 0 1rem 0;font-style:italic;">
+                ℹ️ Must be within a 24 hour timeframe
+            </p>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1rem;">
                 <div class="form-group" style="margin:0;">
                     <label style="display:block;margin-bottom:0.5rem;color:#0c5460;font-weight:600;">Pick Up Time *</label>
@@ -443,6 +446,7 @@
                         name="Pick Up Time"
                         id="pickupTime"
                         required
+                        step="1800"
                         style="width:100%;padding:0.8rem;border:2px solid #17a2b8;border-radius:8px;font-size:1rem;transition:border-color 0.3s;"
                         onfocus="this.style.borderColor='#0c5460'"
                         onblur="this.style.borderColor='#17a2b8'"
@@ -455,11 +459,15 @@
                         name="Drop Off Time"
                         id="dropoffTime"
                         required
+                        step="1800"
                         style="width:100%;padding:0.8rem;border:2px solid #17a2b8;border-radius:8px;font-size:1rem;transition:border-color 0.3s;"
                         onfocus="this.style.borderColor='#0c5460'"
                         onblur="this.style.borderColor='#17a2b8'"
                     >
                 </div>
+            </div>
+            <div id="timeRangeError" style="display:none;margin-top:1rem;padding:0.8rem;background:#f8d7da;border:2px solid #f5c6cb;border-radius:8px;color:#721c24;font-weight:600;text-align:center;">
+                ⚠️ The time range must be within 24 hours. Please adjust your times.
             </div>
         </div>
     </div>

@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('🔥 bookingForm found, initializing...');
         initRentalTotals();
         initDeliveryToggle();
+        initTimeRangeValidation();
         initCityDistanceEstimate();
         // Separate Formspree endpoint for booking requests
         handleFormSubmission('bookingForm', 'https://formspree.io/f/xjggwkja');
@@ -509,6 +510,51 @@ function initDeliveryToggle() {
     radios.forEach(radio => {
         radio.addEventListener('change', updateVisibility);
     });
+}
+
+// ========================================
+// TIME RANGE VALIDATION (24 HOUR LIMIT)
+// ========================================
+function initTimeRangeValidation() {
+    const pickupTimeInput = document.getElementById('pickupTime');
+    const dropoffTimeInput = document.getElementById('dropoffTime');
+    const errorMessage = document.getElementById('timeRangeError');
+
+    if (!pickupTimeInput || !dropoffTimeInput || !errorMessage) return;
+
+    const validateTimeRange = () => {
+        if (!pickupTimeInput.value || !dropoffTimeInput.value) {
+            errorMessage.style.display = 'none';
+            return;
+        }
+
+        // Convert time strings to minutes for comparison
+        const [pickupHours, pickupMins] = pickupTimeInput.value.split(':').map(Number);
+        const [dropoffHours, dropoffMins] = dropoffTimeInput.value.split(':').map(Number);
+
+        const pickupTotalMins = pickupHours * 60 + pickupMins;
+        const dropoffTotalMins = dropoffHours * 60 + dropoffMins;
+
+        // Calculate the difference in minutes
+        let diffMins = dropoffTotalMins - pickupTotalMins;
+
+        // If dropoff is earlier than pickup (next day scenario), add 24 hours
+        if (diffMins < 0) {
+            diffMins += 24 * 60;
+        }
+
+        // 24 hours = 1440 minutes
+        if (diffMins > 1440) {
+            errorMessage.style.display = 'block';
+            // Clear dropoff time to force user to fix it
+            dropoffTimeInput.value = '';
+        } else {
+            errorMessage.style.display = 'none';
+        }
+    };
+
+    pickupTimeInput.addEventListener('change', validateTimeRange);
+    dropoffTimeInput.addEventListener('change', validateTimeRange);
 }
 
 // ========================================
