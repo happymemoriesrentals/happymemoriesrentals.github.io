@@ -675,14 +675,27 @@ function handleFormSubmission(formId, formspreeUrl) {
             console.log('Attempting to send to Formspree...');
             const formData = new FormData(form);
             
-            // If this is the booking form, add detailed item breakdown
+            // If this is the booking form, add detailed organized information
             if (formId === 'bookingForm') {
                 const finalTotal = document.getElementById('finalTotal');
                 
-                // Add a separator for rental items section
-                formData.append('═══════════════════', '═══════════════════');
-                formData.append('📋 RENTAL ITEMS', '📋 RENTAL ITEMS');
-                formData.append('═══════════════════', '═══════════════════');
+                // ============================================
+                // CUSTOMER INFORMATION SECTION
+                // ============================================
+                formData.append('═══════════════════════════════════════', '═══════════════════════════════════════');
+                formData.append('👤 CUSTOMER INFORMATION', '👤 CUSTOMER INFORMATION');
+                formData.append('═══════════════════════════════════════', '═══════════════════════════════════════');
+                
+                // These fields are already in formData from the form inputs
+                // Just making sure they're clearly labeled at the top
+                
+                // ============================================
+                // RENTAL ITEMS SECTION
+                // ============================================
+                formData.append('', '');
+                formData.append('═══════════════════════════════════════', '═══════════════════════════════════════');
+                formData.append('📋 RENTAL ITEMS SELECTED', '📋 RENTAL ITEMS SELECTED');
+                formData.append('═══════════════════════════════════════', '═══════════════════════════════════════');
                 
                 // Get all quantity inputs for individual items
                 const itemInputs = {
@@ -697,67 +710,106 @@ function handleFormSubmission(formId, formspreeUrl) {
                 
                 // Add each item with quantity to form data
                 let itemCount = 0;
+                let hasIndividualItems = false;
                 Object.keys(itemInputs).forEach(id => {
                     const input = document.getElementById(id);
                     if (input) {
                         const qty = parseInt(input.value || 0);
                         if (qty > 0) {
                             itemCount++;
-                            formData.append(`${itemInputs[id]}`, `Quantity: ${qty}`);
+                            hasIndividualItems = true;
+                            formData.append(`  ➤ ${itemInputs[id]}`, `Quantity: ${qty}`);
                         }
                     }
                 });
                 
+                if (!hasIndividualItems) {
+                    formData.append('  Individual Items', 'None selected');
+                }
+                
                 // Check for package selections
                 const superheroCheckbox = document.getElementById('superhero-package');
                 const princessCheckbox = document.getElementById('princess-package');
+                let hasPackages = false;
                 
                 if (superheroCheckbox && superheroCheckbox.checked) {
                     itemCount++;
-                    formData.append('Superhero Party Package', '✓ SELECTED');
+                    hasPackages = true;
+                    formData.append('  ➤ Superhero Party Package', '✓ SELECTED');
                 }
                 
                 if (princessCheckbox && princessCheckbox.checked) {
                     itemCount++;
-                    formData.append('Princess Party Package', '✓ SELECTED');
+                    hasPackages = true;
+                    formData.append('  ➤ Princess Party Package', '✓ SELECTED');
                 }
                 
-                // Add summary section
-                formData.append('───────────────────', '───────────────────');
+                if (!hasPackages) {
+                    formData.append('  Party Packages', 'None selected');
+                }
+                
+                // ============================================
+                // BOOKING SUMMARY
+                // ============================================
+                formData.append('', '');
+                formData.append('═══════════════════════════════════════', '═══════════════════════════════════════');
                 formData.append('📊 BOOKING SUMMARY', '📊 BOOKING SUMMARY');
-                formData.append('───────────────────', '───────────────────');
-                formData.append('Total Items/Packages', itemCount > 0 ? `${itemCount}` : 'No items selected');
+                formData.append('═══════════════════════════════════════', '═══════════════════════════════════════');
+                formData.append('  Total Items/Packages Selected', itemCount > 0 ? `${itemCount}` : 'No items selected');
                 
                 // Add estimated total
                 if (finalTotal) {
-                    formData.append('💰 Estimated Total', finalTotal.innerText || '$0.00');
+                    formData.append('  💰 ESTIMATED TOTAL', finalTotal.innerText || '$0.00');
                 }
                 
-                // Add delivery/pickup information section
-                formData.append('───────────────────', '───────────────────');
-                formData.append('🚚 DELIVERY/PICKUP INFO', '🚚 DELIVERY/PICKUP INFO');
-                formData.append('───────────────────', '───────────────────');
+                // ============================================
+                // DELIVERY/PICKUP INFORMATION
+                // ============================================
+                formData.append('', '');
+                formData.append('═══════════════════════════════════════', '═══════════════════════════════════════');
+                formData.append('🚚 DELIVERY/PICKUP INFORMATION', '🚚 DELIVERY/PICKUP INFORMATION');
+                formData.append('═══════════════════════════════════════', '═══════════════════════════════════════');
                 
                 // Get delivery option
                 const deliveryRadios = document.querySelectorAll('input[name="Delivery Needed"]');
                 let deliveryOption = '';
+                let isDelivery = false;
                 deliveryRadios.forEach(radio => {
                     if (radio.checked) {
                         deliveryOption = radio.value;
+                        isDelivery = radio.value.includes('Yes');
                     }
                 });
                 
                 if (deliveryOption) {
-                    formData.append('Delivery/Pickup Option', deliveryOption);
+                    formData.append('  Delivery Option', deliveryOption);
                 }
                 
-                // Add pickup/dropoff times if applicable
+                // Add pickup/dropoff times if customer is picking up
                 const pickupTimeInput = document.getElementById('pickupTime');
                 const dropoffTimeInput = document.getElementById('dropoffTime');
                 
-                if (pickupTimeInput && dropoffTimeInput && pickupTimeInput.value && dropoffTimeInput.value) {
-                    formData.append('📍 Pick Up Time', pickupTimeInput.value);
-                    formData.append('📍 Drop Off Time', dropoffTimeInput.value);
+                if (!isDelivery && pickupTimeInput && dropoffTimeInput && pickupTimeInput.value && dropoffTimeInput.value) {
+                    formData.append('  ⏰ Pick Up Time', pickupTimeInput.value);
+                    formData.append('  ⏰ Drop Off Time', dropoffTimeInput.value);
+                }
+                
+                // Add delivery address if customer chose delivery
+                const addressInput = document.getElementById('eventAddress');
+                if (isDelivery && addressInput && addressInput.value) {
+                    formData.append('  📍 Delivery Address', addressInput.value);
+                }
+                
+                // ============================================
+                // ADDITIONAL NOTES
+                // ============================================
+                const messageField = form.querySelector('[name="Additional Message/Special Requests"]');
+                if (messageField && messageField.value.trim()) {
+                    formData.append('', '');
+                    formData.append('═══════════════════════════════════════', '═══════════════════════════════════════');
+                    formData.append('💬 ADDITIONAL MESSAGE/SPECIAL REQUESTS', '💬 ADDITIONAL MESSAGE/SPECIAL REQUESTS');
+                    formData.append('═══════════════════════════════════════', '═══════════════════════════════════════');
+                    formData.append('  Customer Message', messageField.value);
                 }
             }
             
@@ -815,7 +867,33 @@ function handleFormSubmission(formId, formspreeUrl) {
             // Scroll to the thank you message
             thankYouBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
+            // Reset form and clear all totals
             form.reset();
+            
+            // Clear the estimated total display
+            if (formId === 'bookingForm') {
+                const totalPrice = document.getElementById('totalPrice');
+                const finalTotal = document.getElementById('finalTotal');
+                const packageTotal = document.getElementById('packageTotalPrice');
+                const selectedSummary = document.getElementById('selectedItemsSummary');
+                
+                if (totalPrice) totalPrice.textContent = '$0.00';
+                if (finalTotal) finalTotal.textContent = '$0.00';
+                if (packageTotal) packageTotal.textContent = '$0.00';
+                if (selectedSummary) selectedSummary.style.display = 'none';
+                
+                // Clear all quantity inputs
+                const quantityInputs = form.querySelectorAll('input[type="number"]');
+                quantityInputs.forEach(input => {
+                    input.value = 0;
+                });
+                
+                // Uncheck packages
+                const superheroCheckbox = document.getElementById('superhero-package');
+                const princessCheckbox = document.getElementById('princess-package');
+                if (superheroCheckbox) superheroCheckbox.checked = false;
+                if (princessCheckbox) princessCheckbox.checked = false;
+            }
 
         } catch (error) {
             console.error('Error submitting form:', error);
