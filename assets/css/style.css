@@ -100,6 +100,15 @@ nav {
     color: var(--primary-color);
 }
 
+/* Ensure BOOK NOW button maintains its styling */
+.nav-menu a.btn-nav {
+    color: var(--white) !important;
+}
+
+.nav-menu a.btn-nav:hover {
+    color: var(--primary-color) !important;
+}
+
 /* Mobile Menu Toggle */
 .menu-toggle {
     display: none;
