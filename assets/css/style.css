@@ -705,8 +705,8 @@ nav {
 }
 
 .btn-nav {
-    background-color: var(--white);
-    color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: var(--white);
     padding: 0.7rem 1.5rem;
     font-size: 0.95rem;
     font-weight: 700;
@@ -714,13 +714,14 @@ nav {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     border-radius: 50px;
+    transition: background 0.3s, color 0.3s, transform 0.2s;
 }
 
 .btn-nav:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    background-color: var(--secondary-color);
-    color: var(--dark-text);
+    background-color: var(--white);
+    color: var(--primary-color);
 }
 
 /* ========================================
