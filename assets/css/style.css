@@ -84,6 +84,7 @@ nav {
     display: flex;
     list-style: none;
     gap: 2rem;
+    align-items: center;
 }
 
 .nav-menu a {
@@ -658,6 +659,25 @@ nav {
 .btn-secondary:hover {
     background-color: #F6DDE3;
     transform: translateY(-3px);
+}
+
+.btn-nav {
+    background-color: var(--white);
+    color: var(--primary-color);
+    padding: 0.7rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 50px;
+}
+
+.btn-nav:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    background-color: var(--secondary-color);
+    color: var(--dark-text);
 }
 
 /* ========================================
