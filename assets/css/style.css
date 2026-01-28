@@ -497,77 +497,77 @@ nav {
 
 /* Balloon positioning and animations */
 .balloon-1 {
-    top: 35%;
-    left: 8%;
+    top: 10%;
+    left: 5%;
     animation: float 8s ease-in-out infinite;
 }
 
 .balloon-2 {
-    top: 40%;
-    right: 10%;
+    top: 60%;
+    right: 8%;
     animation: float-slow 10s ease-in-out infinite;
 }
 
 .balloon-3 {
-    bottom: 15%;
-    right: 12%;
+    bottom: 10%;
+    right: 25%;
     animation: float 7s ease-in-out infinite;
 }
 
 /* String/sparkle positioning */
 .string-1 {
-    top: 45%;
-    left: 12%;
+    top: 25%;
+    right: 5%;
     font-size: 2.8rem;
     animation: drift 8s ease-in-out infinite;
 }
 
 .string-2 {
-    bottom: 20%;
-    left: 10%;
+    bottom: 35%;
+    left: 3%;
     font-size: 2.5rem;
     animation: drift 9s ease-in-out infinite reverse;
 }
 
 /* Confetti positioning */
 .confetti-1 {
-    top: 50%;
-    right: 15%;
+    top: 70%;
+    left: 15%;
     font-size: 3.2rem;
     animation: float 9s ease-in-out infinite;
 }
 
 .confetti-2 {
-    bottom: 30%;
-    right: 12%;
+    bottom: 20%;
+    left: 80%;
     font-size: 3rem;
     animation: float-slow 11s ease-in-out infinite;
 }
 
 /* Star positioning */
 .star-1 {
-    top: 55%;
-    left: 6%;
+    top: 45%;
+    left: 92%;
     font-size: 2.8rem;
     animation: float 7s ease-in-out infinite;
 }
 
 .star-2 {
-    bottom: 25%;
-    right: 8%;
+    bottom: 55%;
+    right: 3%;
     font-size: 2.5rem;
     animation: float-slow 8s ease-in-out infinite;
 }
 
 .balloon-4 {
-    top: 20%;
-    left: 35%;
+    top: 75%;
+    right: 60%;
     animation: float 9s ease-in-out infinite;
 }
 
 .confetti-3 {
-    top: 70%;
-    left: 20%;
+    top: 30%;
+    left: 50%;
     font-size: 3.3rem;
     animation: drift 10s ease-in-out infinite reverse;
 }
