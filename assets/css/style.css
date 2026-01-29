@@ -1568,6 +1568,10 @@ footer p {
         max-width: 300px;
     }
 
+    .hero {
+        min-height: 50vh;
+    }
+
     .hero h1 {
         font-size: 2rem;
     }
@@ -1646,15 +1650,20 @@ footer p {
     }
 
     .hero {
-        padding: 3rem 1rem;
+        padding: 2rem 1rem;
+        min-height: 45vh;
     }
 
     .hero h1 {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
 
     .hero p {
         font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
     }
 
     .section {
