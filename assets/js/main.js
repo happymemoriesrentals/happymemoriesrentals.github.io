@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (document.getElementById('contactForm')) {
-        initContactDeliveryToggle();
         // Separate Formspree endpoint for contact form (use your second form endpoint here)
         handleFormSubmission('contactForm', 'https://formspree.io/f/xjggwkja');
     }
@@ -588,28 +587,6 @@ function initCityDistanceEstimate() {
         } else {
             output.textContent =
                 '📍 Distance estimate not available — we will confirm manually';
-        }
-    });
-}
-
-// ========================================
-// CONTACT FORM DELIVERY TOGGLE
-// ========================================
-function initContactDeliveryToggle() {
-    const needsDeliverySelect = document.getElementById('needsDelivery');
-    const partyAddressGroup = document.getElementById('partyAddressGroup');
-    const partyAddressInput = document.getElementById('partyAddress');
-
-    if (!needsDeliverySelect || !partyAddressGroup) return;
-
-    needsDeliverySelect.addEventListener('change', (e) => {
-        if (e.target.value === 'yes') {
-            partyAddressGroup.style.display = 'block';
-            partyAddressInput.setAttribute('required', 'required');
-        } else {
-            partyAddressGroup.style.display = 'none';
-            partyAddressInput.removeAttribute('required');
-            partyAddressInput.value = '';
         }
     });
 }
