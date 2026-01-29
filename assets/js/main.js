@@ -76,13 +76,10 @@ function showPackages() {
     document.getElementById('selectionScreen').style.display = 'none';
     document.getElementById('individualItemsSection').style.display = 'none';
     document.getElementById('packagesSection').style.display = 'block';
-    document.querySelector('.booking-form-section').style.display = 'block';
+    document.querySelector('.booking-form-section').style.display = 'none';
     
     // Reset individual item quantities
     resetIndividualItems();
-    
-    // Calculate package total
-    calculatePackageTotal();
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
