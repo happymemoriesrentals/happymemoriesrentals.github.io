@@ -920,8 +920,9 @@ nav {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     border: 2px solid transparent;
-    height: 100%;
-    max-height: 550px;
+    display: flex;
+    flex-direction: column;
+    height: 480px;
 }
 
 .rental-item:hover {
@@ -966,14 +967,17 @@ nav {
 
 .rental-info {
     padding: 2rem;
-    min-height: 200px;
-    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
 }
 
 .rental-info h3 {
     color: var(--dark-text);
     margin-bottom: 0.75rem;
     font-size: 1.4rem;
+    flex-shrink: 0;
 }
 
 .rental-description {
@@ -981,6 +985,12 @@ nav {
     font-size: 0.95rem;
     margin-bottom: 1rem;
     line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    flex-shrink: 0;
 }
 
 .rental-price {
@@ -989,6 +999,7 @@ nav {
     font-weight: bold;
     margin: 1.25rem 0;
     display: block;
+    flex-shrink: 0;
 }
 
 .quantity-selector {
