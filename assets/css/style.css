@@ -920,8 +920,8 @@ nav {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     border: 2px solid transparent;
-    display: flex;
-    flex-direction: column;
+    height: 100%;
+    max-height: 550px;
 }
 
 .rental-item:hover {
@@ -966,9 +966,8 @@ nav {
 
 .rental-info {
     padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+    min-height: 200px;
+    max-height: 300px;
 }
 
 .rental-info h3 {
