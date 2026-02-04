@@ -7,9 +7,9 @@
     --primary-color: #E2B13C;
     --secondary-color: #F2D16B;
     --accent-color: #C89B2B;
-    --gold-gradient: linear-gradient(135deg, #F5D547 0%, #E2B13C 50%, #C89B2B 100%);
-    --gold-gradient-light: linear-gradient(135deg, #FFF9E6 0%, #F5D547 50%, #E2B13C 100%);
-    --gold-gradient-dark: linear-gradient(135deg, #E2B13C 0%, #C89B2B 50%, #9D7620 100%);
+    --gold-gradient: linear-gradient(135deg, #FFF9E6 0%, #F5D547 50%, #E2B13C 100%);
+    --gold-gradient-light: linear-gradient(135deg, #FFFCF0 0%, #FFF9E6 50%, #F5D547 100%);
+    --gold-gradient-dark: linear-gradient(135deg, #F5D547 0%, #E2B13C 50%, #D4A830 100%);
     --purple-accent: #F6DDE3;
     --dark-text: #4F4F4F;
     --light-text: #6B6B6B;
