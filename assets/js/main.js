@@ -396,8 +396,12 @@ function enforceMaxQuantity(input) {
     const min = parseInt(input.getAttribute('min')) || 0;
     let value = parseInt(input.value);
     
+    // Find the rental item container and price wrapper
+    const rentalItem = input.closest('.rental-item');
+    const priceWrapper = rentalItem ? rentalItem.querySelector('.price-and-max-wrapper') : null;
+    
     // Remove any existing max message
-    const existingMsg = input.parentElement.querySelector('.max-qty-message');
+    const existingMsg = priceWrapper ? priceWrapper.querySelector('.max-qty-message') : input.parentElement.querySelector('.max-qty-message');
     if (existingMsg) {
         existingMsg.remove();
     }
@@ -419,18 +423,10 @@ function enforceMaxQuantity(input) {
         const message = document.createElement('div');
         message.className = 'max-qty-message';
         message.textContent = '✓ Max quantity selected';
-        message.style.cssText = `
-            color: #ff6b9d;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-top: 0.5rem;
-            padding: 0.4rem 0.8rem;
-            background: #fff0f5;
-            border-radius: 8px;
-            border: 2px solid #ff6b9d;
-            display: inline-block;
-        `;
-        input.parentElement.appendChild(message);
+        
+        if (priceWrapper) {
+            priceWrapper.appendChild(message);
+        }
     }
 }
 
