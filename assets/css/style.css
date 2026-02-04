@@ -992,6 +992,7 @@ nav {
     align-items: center;
     gap: 1rem;
     margin-top: 1.5rem;
+    position: relative;
 }
 
 .quantity-selector label {
@@ -1093,9 +1094,9 @@ nav {
     display: inline-block !important;
     white-space: nowrap !important;
     position: absolute !important;
+    bottom: 100% !important;
     right: 0 !important;
-    top: 0 !important;
-    margin-top: 0 !important;
+    margin-bottom: 0.3rem !important;
 }
 
 .rental-info {
