@@ -922,7 +922,7 @@ nav {
     border: 2px solid transparent;
     display: flex;
     flex-direction: column;
-    height: 680px;
+    height: 650px;
     position: relative;
 }
 
@@ -1000,7 +1000,7 @@ nav {
     color: var(--primary-color);
     font-size: 1.8rem;
     font-weight: bold;
-    margin: 1rem 0 1.5rem 0;
+    margin: 0.5rem 0 0.75rem 0;
     display: block;
     flex-shrink: 0;
 }
@@ -1009,7 +1009,7 @@ nav {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-top: -1.2rem;
+    margin-top: -1.4rem;
     position: relative;
     flex-wrap: wrap;
 }
@@ -1113,7 +1113,7 @@ nav {
     display: inline-block !important;
     white-space: nowrap !important;
     position: absolute !important;
-    bottom: 0.3rem !important;
+    bottom: 1rem !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     margin: 0 !important;
