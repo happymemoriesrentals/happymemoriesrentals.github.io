@@ -922,7 +922,7 @@ nav {
     border: 2px solid transparent;
     display: flex;
     flex-direction: column;
-    height: 630px;
+    height: 680px;
     position: relative;
 }
 
@@ -1113,7 +1113,7 @@ nav {
     display: inline-block !important;
     white-space: nowrap !important;
     position: absolute !important;
-    bottom: 0.5rem !important;
+    bottom: 0.3rem !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     margin: 0 !important;
