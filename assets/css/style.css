@@ -1084,14 +1084,18 @@ nav {
 /* Max Quantity Message */
 .max-qty-message {
     background: linear-gradient(135deg, #FFE8F0 0%, #FFF0F5 100%) !important;
-    border: 2px solid #FF69B4 !important;
+    border: 1px solid #FF69B4 !important;
     color: #D81B60 !important;
-    font-size: 0.85rem !important;
+    font-size: 0.75rem !important;
     font-weight: 600 !important;
-    padding: 0.5rem 1rem !important;
-    border-radius: 8px !important;
+    padding: 0.3rem 0.6rem !important;
+    border-radius: 6px !important;
     display: inline-block !important;
     white-space: nowrap !important;
+    position: absolute !important;
+    right: 0 !important;
+    top: 0 !important;
+    margin-top: 0 !important;
 }
 
 .rental-info {
@@ -1100,10 +1104,9 @@ nav {
 }
 
 .price-and-max-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 1.25rem 0;
+    display: block;
+    position: relative;
+    height: auto;
 }
 
 /* ========================================
