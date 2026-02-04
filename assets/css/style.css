@@ -922,7 +922,8 @@ nav {
     border: 2px solid transparent;
     display: flex;
     flex-direction: column;
-    height: 540px;
+    height: 590px;
+    position: relative;
 }
 
 .rental-item:hover {
@@ -1008,7 +1009,7 @@ nav {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-top: auto;
+    margin-top: 1.5rem;
     position: relative;
     flex-wrap: wrap;
 }
@@ -1112,9 +1113,11 @@ nav {
     display: inline-block !important;
     white-space: nowrap !important;
     position: absolute !important;
-    bottom: 100% !important;
-    right: 0 !important;
-    margin-bottom: 0.3rem !important;
+    bottom: 0.8rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+    z-index: 10 !important;
 }
 
 .rental-info {

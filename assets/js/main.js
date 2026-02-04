@@ -396,11 +396,11 @@ function enforceMaxQuantity(input) {
     const min = parseInt(input.getAttribute('min')) || 0;
     let value = parseInt(input.value);
     
-    // Find the quantity selector container
-    const quantitySelector = input.closest('.quantity-selector');
+    // Find the rental item container
+    const rentalItem = input.closest('.rental-item');
     
     // Remove any existing max message
-    const existingMsg = quantitySelector ? quantitySelector.querySelector('.max-qty-message') : null;
+    const existingMsg = rentalItem ? rentalItem.querySelector('.max-qty-message') : null;
     if (existingMsg) {
         existingMsg.remove();
     }
@@ -423,8 +423,8 @@ function enforceMaxQuantity(input) {
         message.className = 'max-qty-message';
         message.textContent = '✓ Max quantity selected';
         
-        if (quantitySelector) {
-            quantitySelector.appendChild(message);
+        if (rentalItem) {
+            rentalItem.appendChild(message);
         }
     }
 }
