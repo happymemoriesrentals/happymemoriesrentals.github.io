@@ -2000,8 +2000,38 @@ footer p {
         font-size: 1.3rem;
     }
 
+    .contact-info {
+        padding: 1.25rem;
+    }
+
+    .contact-info h3 {
+        font-size: 1.6rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .contact-info p {
+        font-size: 0.95rem;
+        margin: 0.7rem 0;
+    }
+
     .service-content p {
         font-size: 0.95rem;
+    }
+
+    .contact-info {
+        padding: 1.5rem;
+        border-radius: 10px;
+    }
+
+    .contact-info h3 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .contact-info p {
+        font-size: 1rem;
+        margin: 0.8rem 0;
+        line-height: 1.6;
     }
 }
 
