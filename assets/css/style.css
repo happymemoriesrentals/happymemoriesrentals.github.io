@@ -1012,7 +1012,7 @@ nav {
     margin-top: -1.4rem;
     position: relative;
     flex-wrap: wrap;
-    padding-bottom: 1.6rem;
+    padding-bottom: 2.1rem;
 }
 
 .quantity-selector label {
@@ -1114,7 +1114,7 @@ nav {
     display: inline-block !important;
     white-space: nowrap !important;
     position: absolute !important;
-    bottom: 0 !important;
+    bottom: -0.2rem !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     text-align: center !important;
