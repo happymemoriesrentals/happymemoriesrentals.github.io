@@ -1943,6 +1943,14 @@ footer p {
         padding: 1.5rem;
     }
 
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+
     .btn {
         padding: 0.6rem 1.5rem;
         font-size: 0.9rem;
