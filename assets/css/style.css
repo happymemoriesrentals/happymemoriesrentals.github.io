@@ -1997,18 +1997,3 @@ footer p {
 .hidden {
     display: none;
 }
-
-/* ========================================
-   Important Notice Animation
-   ======================================== */
-.important-notice {
-    animation: importantPulse 2s ease-in-out infinite;
-    display: inline-block;
-    transition: all 0.3s ease;
-}
-
-.important-notice:hover {
-    animation: none;
-    transform: scale(1.05);
-    text-shadow: 0 0 12px rgba(229, 57, 53, 0.6);
-}
