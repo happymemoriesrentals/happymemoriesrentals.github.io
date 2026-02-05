@@ -82,6 +82,13 @@ nav {
     font-weight: bold;
     color: var(--primary-color);
     text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    text-shadow: 0 2px 8px rgba(226, 177, 60, 0.3);
+    animation: subtleScale 0.8s ease-in-out;
 }
 
 .nav-menu {
@@ -95,12 +102,29 @@ nav {
     text-decoration: none;
     color: var(--dark-text);
     font-weight: 500;
-    transition: color 0.3s;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
 .nav-menu a:hover,
 .nav-menu a.active {
     color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.nav-menu a:not(.btn-nav)::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-menu a:not(.btn-nav):hover::after {
+    width: 100%;
 }
 
 /* Ensure BOOK NOW button maintains its styling */
@@ -387,6 +411,12 @@ nav {
     margin-left: auto;
     margin-right: auto;
     line-height: 1.7;
+    transition: all 0.3s ease;
+}
+
+.hero p:hover {
+    transform: scale(1.02);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .hero .tagline {
@@ -394,6 +424,13 @@ nav {
     font-size: 1.8rem;
     margin-bottom: 2.5rem;
     font-weight: 300;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.hero .tagline:hover {
+    animation: subtleScale 1s ease-in-out;
+    color: var(--primary-color);
 }
 
 /* ========================================
@@ -1265,16 +1302,27 @@ nav {
     border-color: var(--secondary-color);
 }
 
+.selection-card:hover h3 {
+    animation: titleGlow 1s ease-in-out;
+    color: var(--primary-color);
+}
+
 .selection-icon {
     font-size: 4rem;
     margin-bottom: 1rem;
     animation: float 3s ease-in-out infinite;
+    transition: transform 0.3s ease;
+}
+
+.selection-card:hover .selection-icon {
+    transform: scale(1.15) rotate(-5deg);
 }
 
 .selection-card h3 {
     color: var(--dark-text);
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    transition: all 0.3s ease;
 }
 
 .selection-card p {
@@ -1335,6 +1383,11 @@ nav {
     box-shadow: 0 8px 30px rgba(246, 221, 227, 0.25);
 }
 
+.package-card:hover .package-header h3 {
+    animation: subtleScale 0.8s ease-in-out;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
 .package-header {
     padding: 2rem;
     text-align: center;
@@ -1345,6 +1398,7 @@ nav {
 .package-header h3 {
     margin: 0;
     font-size: 2rem;
+    transition: all 0.3s ease;
 }
 
 .superhero-theme {
@@ -1429,6 +1483,12 @@ nav {
     color: var(--primary-color);
     font-size: 2rem;
     font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.package-card:hover .price-amount {
+    animation: subtleScale 0.8s ease-in-out;
+    text-shadow: 0 2px 8px rgba(226, 177, 60, 0.3);
 }
 
 .package-selector {
@@ -1482,6 +1542,12 @@ nav {
     margin-bottom: 0.5rem;
     font-weight: 600;
     color: var(--dark-text);
+    transition: all 0.3s ease;
+}
+
+.form-group:hover label {
+    color: var(--primary-color);
+    transform: translateX(2px);
 }
 
 .form-group input,
@@ -1656,21 +1722,35 @@ footer p {
     font-size: 3rem;
     font-weight: bold;
     text-align: center;
+    transition: all 0.3s ease;
+}
+
+.contact-info h3:hover {
+    animation: titleGlow 1.2s ease-in-out;
+    transform: scale(1.03);
 }
 
 .contact-info p {
     margin: 1rem 0;
     font-size: 1.4rem;
     line-height: 1.8;
+    transition: all 0.3s ease;
+}
+
+.contact-info p:hover {
+    transform: translateX(5px);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .contact-info a {
     color: var(--primary-color);
     text-decoration: none;
+    transition: all 0.3s ease;
 }
 
 .contact-info a:hover {
     text-decoration: underline;
+    animation: subtleScale 0.5s ease-in-out;
 }
 
 /* ========================================
@@ -1687,11 +1767,23 @@ footer p {
     color: var(--primary-color);
     margin-top: 2rem;
     margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.about-content h2:hover {
+    animation: titleGlow 1s ease-in-out;
+    transform: translateX(5px);
 }
 
 .about-content p {
     margin-bottom: 1.5rem;
     font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.about-content p:hover {
+    transform: translateX(3px);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 /* ========================================
