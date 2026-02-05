@@ -397,11 +397,13 @@ nav {
     letter-spacing: -1px;
     transition: all 0.3s ease;
     cursor: default;
+    color: #000000;
 }
 
 .hero h1:hover {
     animation: titleGlow 1.5s ease-in-out;
     transform: scale(1.03);
+    color: #000000;
 }
 
 .hero p {
