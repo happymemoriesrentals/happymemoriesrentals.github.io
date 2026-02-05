@@ -42,12 +42,18 @@
     box-sizing: border-box;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--dark-text);
     background-color: var(--white);
     position: relative;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 /* Container */
@@ -55,6 +61,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    width: 100%;
 }
 
 /* ========================================
@@ -66,6 +73,8 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1000;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .nav-container {
@@ -75,6 +84,7 @@ nav {
     padding: 1rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    width: 100%;
 }
 
 .logo {
@@ -174,6 +184,7 @@ nav {
     justify-content: center;
     position: relative;
     overflow: hidden;
+    width: 100%;
 }
 
 .hero::before {
@@ -442,6 +453,8 @@ nav {
     background-color: var(--white);
     padding: 1.5rem 2rem 2rem;
     margin-bottom: 1rem;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .stats-grid {
@@ -555,6 +568,7 @@ nav {
     padding: 3rem 2rem;
     position: relative;
     overflow: hidden;
+    width: 100%;
 }
 
 .team-description {
@@ -846,6 +860,7 @@ nav {
     padding: 4rem 2rem;
     position: relative;
     overflow: hidden;
+    width: 100%;
 }
 
 .section-title {
@@ -1666,6 +1681,8 @@ footer {
     text-align: center;
     padding: 3rem 2rem;
     margin-top: 4rem;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .footer-content {
@@ -1805,6 +1822,7 @@ footer p {
         transition: 0.3s;
         box-shadow: var(--shadow);
         padding: 2rem 0;
+        overflow-x: hidden;
     }
 
     .nav-menu.active {
