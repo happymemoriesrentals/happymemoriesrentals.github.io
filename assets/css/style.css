@@ -280,6 +280,51 @@ nav {
     }
 }
 
+@keyframes titleGlow {
+    0%, 100% {
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        text-shadow: 3px 3px 12px rgba(226, 177, 60, 0.5), 3px 3px 6px rgba(0, 0, 0, 0.3);
+    }
+}
+
+@keyframes subtleScale {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+@keyframes underlineSlide {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes importantPulse {
+    0%, 100% {
+        text-shadow: 0 0 0 rgba(229, 57, 53, 0.4);
+    }
+    50% {
+        text-shadow: 0 0 8px rgba(229, 57, 53, 0.6);
+    }
+}
+
+@keyframes subtleHighlight {
+    0%, 100% {
+        background-color: transparent;
+    }
+    50% {
+        background-color: rgba(226, 177, 60, 0.1);
+    }
+}
+
 .hero-animate {
     opacity: 0;
     animation-fill-mode: forwards;
@@ -326,6 +371,13 @@ nav {
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
     font-weight: 800;
     letter-spacing: -1px;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.hero h1:hover {
+    animation: titleGlow 1.5s ease-in-out;
+    transform: scale(1.03);
 }
 
 .hero p {
@@ -380,6 +432,7 @@ nav {
 .stat-box:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(246, 221, 227, 0.35);
+    animation: subtleHighlight 1.5s ease-in-out infinite;
 }
 
 .stat-icon {
@@ -403,6 +456,12 @@ nav {
     color: var(--dark-text);
     margin-bottom: 0.3rem;
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+.stat-box:hover .stat-number {
+    animation: subtleScale 0.6s ease-in-out;
+    color: var(--primary-color);
 }
 
 .stat-label {
@@ -659,11 +718,16 @@ nav {
     border-color: var(--primary-color);
 }
 
+.team-member:hover h3 {
+    animation: titleGlow 1s ease-in-out;
+}
+
 .team-member h3 {
     font-size: 1.6rem;
     color: var(--primary-color);
     margin-bottom: 0.5rem;
     font-weight: 700;
+    transition: all 0.3s ease;
 }
 
 .team-role {
@@ -750,6 +814,12 @@ nav {
     font-size: 3.75rem;
     margin-bottom: 1rem;
     color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.section-title:hover {
+    animation: subtleScale 1s ease-in-out;
+    text-shadow: 0 4px 8px rgba(226, 177, 60, 0.2);
 }
 
 .section-description {
@@ -837,6 +907,10 @@ nav {
     border-color: var(--primary-color);
 }
 
+.service-card:hover .service-content h3 {
+    animation: titleGlow 1s ease-in-out;
+}
+
 .service-icon {
     font-size: 4rem;
     margin-bottom: 1.5rem;
@@ -846,6 +920,11 @@ nav {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.1);
 }
 
 .service-content h3 {
@@ -853,6 +932,7 @@ nav {
     color: var(--primary-color);
     margin-bottom: 1rem;
     font-weight: 700;
+    transition: all 0.3s ease;
 }
 
 .service-content p {
@@ -884,10 +964,19 @@ nav {
     transform: translateY(-10px);
 }
 
+.feature-box:hover h3 {
+    animation: titleGlow 1s ease-in-out;
+}
+
 .feature-icon {
     font-size: 4.5rem;
     margin-bottom: 1rem;
     animation: float 3s ease-in-out infinite;
+    transition: transform 0.3s ease;
+}
+
+.feature-box:hover .feature-icon {
+    transform: scale(1.15) rotate(5deg);
 }
 
 .feature-box h3 {
@@ -895,6 +984,7 @@ nav {
     color: var(--primary-color);
     margin-bottom: 0.5rem;
     font-weight: 700;
+    transition: all 0.3s ease;
 }
 
 .feature-box p {
@@ -979,6 +1069,12 @@ nav {
     margin-bottom: 0.75rem;
     font-size: 1.4rem;
     flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.rental-item:hover .rental-info h3 {
+    color: var(--primary-color);
+    animation: subtleScale 0.6s ease-in-out;
 }
 
 .rental-description {
@@ -1003,6 +1099,12 @@ nav {
     margin: 0.5rem 0 0.75rem 0;
     display: block;
     flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.rental-item:hover .rental-price {
+    animation: subtleScale 0.8s ease-in-out;
+    text-shadow: 0 2px 8px rgba(226, 177, 60, 0.3);
 }
 
 .quantity-selector {
@@ -1800,4 +1902,19 @@ footer p {
 
 .hidden {
     display: none;
+}
+
+/* ========================================
+   Important Notice Animation
+   ======================================== */
+.important-notice {
+    animation: importantPulse 2s ease-in-out infinite;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.important-notice:hover {
+    animation: none;
+    transform: scale(1.05);
+    text-shadow: 0 0 12px rgba(229, 57, 53, 0.6);
 }
