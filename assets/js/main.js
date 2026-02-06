@@ -786,10 +786,10 @@ function handleFormSubmission(formId, formspreeUrl) {
                 formData.append('═══════════════════════════════════════', '═══════════════════════════════════════');
                 formData.append('📋 CANCELLATION POLICY', '📋 CANCELLATION POLICY');
                 formData.append('═══════════════════════════════════════', '═══════════════════════════════════════');
-                formData.append('  Deposit Required Upon Booking', '$30 deposit');
+                formData.append('  Deposit Required Upon Booking', '20% deposit based on order size');
                 formData.append('  When Payment is Due', 'Full payment due upon delivery on the event date');
-                formData.append('  Cancellation Terms', 'If you cancel last minute, the $30 deposit is non-refundable and will be retained');
-                formData.append('  Next Steps', 'We will contact you via email to collect the $30 deposit. Once confirmed, we will arrange delivery details with you.');
+                formData.append('  Cancellation Terms', 'If you cancel last minute or fail to pay the deposit, the 20% deposit is non-refundable and will be retained');
+                formData.append('  Next Steps', 'We will contact you via email to collect the 20% deposit. Once confirmed, we will arrange delivery details with you.');
             }
             
             // Log form data
