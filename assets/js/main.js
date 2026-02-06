@@ -300,12 +300,12 @@ function initRentalTotals() {
     };
 
     const itemNames = {
-        'white-chairs': 'White Plastic Chairs',
-        'adult-tables': 'Plastic Tables (Adult)',
-        'kids-chairs': 'Kids Pink Chiavari Chairs',
+        'white-chairs': 'White Plastic Chairs (Adult Size)',
+        'adult-tables': 'Plastic Tables (Adult Size)',
+        'kids-chairs': 'Pink Chiavari Chairs (Kids size)',
         'kids-tables': 'Kids Tables',
-        'wooden-stools': 'Wooden Kids Stools',
-        'white-resin-chairs': 'Kids White Resin Chairs',
+        'wooden-stools': 'Wooden Stools (Kids Size)',
+        'white-resin-chairs': 'White Resin Chairs (Kids Size)',
         'cherry-backdrop': 'Cherry Backdrop'
     };
 
@@ -666,12 +666,12 @@ function handleFormSubmission(formId, formspreeUrl) {
                 
                 // Get all quantity inputs for individual items
                 const itemInputs = {
-                    'white-chairs': 'White Plastic Chairs',
-                    'adult-tables': 'Plastic Tables (Adult)',
-                    'kids-chairs': 'Kids Pink Chiavari Chairs',
+                    'white-chairs': 'White Plastic Chairs (Adult Size)',
+                    'adult-tables': 'Plastic Tables (Adult Size)',
+                    'kids-chairs': 'Pink Chiavari Chairs (Kids size)',
                     'kids-tables': 'Kids Tables',
-                    'wooden-stools': 'Wooden Kids Stools',
-                    'white-resin-chairs': 'Kids White Resin Chairs',
+                    'wooden-stools': 'Wooden Stools (Kids Size)',
+                    'white-resin-chairs': 'White Resin Chairs (Kids Size)',
                     'cherry-backdrop': 'Cherry Backdrop'
                 };
                 
